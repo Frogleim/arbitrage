@@ -40,6 +40,35 @@ class Mexc:
         )
         return withdraw_amount
 
+    def buy_crypto(self, coin, quote_coin, amount):
+        trading_pair = f"{coin}{quote_coin}"  # Format as "BTCUSDT"
+
+        order = self.client.account.new_order(
+            symbol=trading_pair,  # e.g., "ETHUSDT"
+            side="BUY",  # Buy order
+            type="MARKET",  # Market order
+            quoteOrderQty=amount  # Amount in quote currency (USDT)
+        )
+        return order
+
+    def check_balance(self, coin):
+        balances = self.client.account.get_account()["balances"]
+        for asset in balances:
+            if asset["asset"] == coin:
+                return asset  # Returns full balance details
+        return None
+
+    def sell_crypto(self, coin, quote_coin, amount):
+        trading_pair = f"{coin}{quote_coin}"  # Format as "BTCUSDT"
+
+        order = self.client.account.new_order(
+            symbol=trading_pair,  # e.g., "ETHUSDT"
+            side="SELL",  # Buy order
+            type="MARKET",  # Market order
+            quoteOrderQty=amount  # Amount in quote currency (USDT)
+        )
+
+        return order
 
 
 if __name__ == '__main__':
