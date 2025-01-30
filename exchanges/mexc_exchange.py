@@ -1,6 +1,8 @@
 from mexc_api.spot import Spot
 import os
 from dotenv import load_dotenv
+from mexc_api.common.enums import Side, OrderType, StreamInterval, Action
+
 
 load_dotenv()
 
@@ -18,7 +20,6 @@ class Mexc:
         # Loop through assets to find the correct coin
         for asset in wallet_assets:
             if asset["coin"] == base_coin:
-                print("Found asset:", asset)  # Debugging to see the matched coin
 
                 # Loop through available networks
                 for net in asset["networkList"]:
@@ -27,9 +28,20 @@ class Mexc:
 
         return None  # If coin or network is not found
 
-    def check_signal(self, trading_pair):
+    def check_signal(self, trading_pair, price, threshold=0.02):  # 0.5% threshold
         price_data = self.client.market.ticker_price(symbol=trading_pair)
-        return price_data
+        market_price = float(price_data[0]['price'])  # Convert to float
+        diff = abs(price - market_price) / market_price
+
+        # Check if the price is within the threshold
+        is_near = diff <= threshold
+
+        return {
+            "market_price": market_price,
+            "incoming_price": price,
+            "difference": diff * 100,  # Convert to percentage
+            "is_near": is_near
+        }
 
     def withdraw(self, amount, coin, network, address):
         withdraw_amount = self.client.wallet.withdraw(
@@ -40,14 +52,13 @@ class Mexc:
         )
         return withdraw_amount
 
-    def buy_crypto(self, coin, quote_coin, amount):
-        trading_pair = f"{coin}{quote_coin}"  # Format as "BTCUSDT"
-
+    def buy_crypto(self, coin,  amount):
+        print(coin)
         order = self.client.account.new_order(
-            symbol=trading_pair,  # e.g., "ETHUSDT"
-            side="BUY",  # Buy order
-            type="MARKET",  # Market order
-            quoteOrderQty=amount  # Amount in quote currency (USDT)
+            symbol=coin,
+            side=Side.BUY,  # Buy order
+            order_type=OrderType.MARKET,  # Market order
+            quote_order_quantity=amount  # Amount in quote currency (USDT)
         )
         return order
 
