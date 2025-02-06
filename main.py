@@ -1,21 +1,27 @@
-from os import PRIO_PGRP
+import time
 
-from exchanges import mexc_exchange, bingx_exchange
+from exchanges import mexc_exchange, bingx_exchange, loggs
+from decimal import Decimal, ROUND_DOWN
 
 signal_example = {
-    "symbol": "ETHUSDT",
-    "network": "BEP20",
-    "quantity": 1,
-    "price": 2608,
-    "exchange": "BINGX"
+    "symbol": "POLUSDT",
+    "network": "POL",
+    "quantity": 3,
+    "price": 0.336,
+    "exchange": "MEXC"
 }
+
+
+def round_amount(amount, decimals=2):
+    return Decimal(amount).quantize(Decimal(f'1.{"0" * decimals}'), rounding=ROUND_DOWN)
+
+
 def get_signal():
     if signal_example['exchange'] == 'MEXC':
         mex = mexc_exchange.Mexc()
         data = mex.check_signal(trading_pair=signal_example['symbol'], price=signal_example['price'])
-        print(data)
         if data['is_near']:
-            print("Signal is valid! Starting arbitrage")
+            loggs.system_log.info("Signal is valid! Starting arbitrage")
             return True, 'MEXC'
         else:
             return False, 'MEXC'
@@ -24,7 +30,7 @@ def get_signal():
         bingx = bingx_exchange.BingX()
         data = bingx.check_signal(trading_pair=signal_example['symbol'], price=signal_example['price'])
         if data['is_near']:
-            print("Signal is valid! Starting arbitrage")
+            loggs.system_log.info("Signal is valid! Starting arbitrage")
             return True, 'BINGX'
         else:
             return False, 'BINGX'
@@ -39,27 +45,41 @@ def start_arbitrage():
             coin=coin,
             network=signal_example['network']
         )
-        contract = next((item['contractAddress'] for item in addr if item['network'] == signal_example['network']), None)
 
-        print(f'BINGX {coin} address: {contract}')
+        loggs.system_log.info(f'BINGX {coin} address: {addr}')
+        price_data = mex.client.market.ticker_price(symbol=signal_example['symbol'])
+        matic_price = float(price_data[0]['price'])  # Convert to float
+        required_usdt = round_amount(matic_price * signal_example['quantity'], decimals=2)
+        usdt_balance = mex.check_balance("USDT")  # Fetch balance details
+        available_usdt = float(usdt_balance["free"]) if usdt_balance else 0
 
-        print(f"Buying {signal_example['symbol']} with quantity {signal_example['quantity']} on BINGX")
-        # order = mex.buy_crypto(
-        #     coin=signal_example['symbol'],
-        #     amount=signal_example['quantity']
-        # )
+        loggs.system_log.info(f"Buying {signal_example['symbol']} with quantity {signal_example['quantity']} on MEXC")
+        if available_usdt >= required_usdt:
+            # Step 4: Buy MATIC with the available USDT
+            order_response = mex.buy_crypto(signal_example['symbol'], required_usdt)
+            loggs.system_log.info("Order placed:", order_response)
+        else:
+            loggs.system_log.info("Insufficient USDT balance. Required:", required_usdt, "Available:", available_usdt)
         # print(order)
-        print(f'Sending crypto to BING address')
+        time.sleep(15)
+        loggs.system_log.info('Waiting 15 seconds...')
+        loggs.system_log.info(f'Sending crypto to BING address')
+        mex.withdraw(
+            amount=required_usdt,
+            coin=coin,
+            network=signal_example['network'],
+            address=addr
+        )
         bingx.sell_crypto()
-        print('Finishing')
+        loggs.system_log.info('Finishing')
 
     elif is_valid and exchange == 'BINGX':
         addr = mex.get_asset_address(
             coin=coin,
             network=signal_example['network']
         )
-        print(addr)
-        print(f"Buying {signal_example['symbol']} with quantity {signal_example['quantity']} on MEXC")
+
+        loggs.system_log.info(f"Buying {signal_example['symbol']} with quantity {signal_example['quantity']} on MEXC")
 
 
 
