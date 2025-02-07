@@ -1,9 +1,11 @@
+
 import time
+from os import PRIO_PGRP
+
 import requests
 import hmac
-import json  # Import JSON for saving data
-import os
 from hashlib import sha256
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -12,22 +14,18 @@ APIURL = "https://open-api.bingx.com"
 APIKEY = os.getenv('BINGX_API_KEY')
 SECRETKEY = os.getenv('BINGX_SECRET_KEY')
 
-timestamp = str(int(time.time() * 1000))
-
-
-def sell(coin, quantity):
+def withdraw(address, coin, amount, network):
     payload = {}
-    path = '/openApi/spot/v1/trade/order'
+    path = '/openApi/wallets/v1/capital/withdraw/apply'
     method = "POST"
     paramsMap = {
-    "type": "MARKET",
-    "symbol": coin,
-    "side": "SELL",
-    "quantity": quantity,
-    "newClientOrderId": "",
-    "recvWindow": 1000,
-    "timeInForce": "GTC",
-    "timestamp": timestamp,
+    "address": address,
+    "addressTag": "None",
+    "amount": str(amount),
+    "coin": coin,
+    "network":  network,
+    "timestamp": str(int(time.time() * 1000)),
+    "walletType": "1"
 }
     paramsStr = parseParam(paramsMap)
     return send_request(method, path, paramsStr, payload)
@@ -45,7 +43,8 @@ def send_request(method, path, urlpa, payload):
         'X-BX-APIKEY': APIKEY,
     }
     response = requests.request(method, url, headers=headers, data=payload)
-    return response.json()
+    print(response.json())
+    return response.text
 
 def parseParam(paramsMap):
     sortedKeys = sorted(paramsMap)
@@ -57,4 +56,10 @@ def parseParam(paramsMap):
 
 
 if __name__ == '__main__':
-    print("demo:", sell(coin='POL-USDT'.strip(), quantity=3.34))
+    withdraw(
+        address="0x753bf176f4f7c56d4f19b06e09756863c28ef7c6",
+        coin="POL",
+        amount=6,
+        network="POLYGON"
+
+    )

@@ -1,7 +1,11 @@
-from mexc_api.spot import Spot
+import time
+import hmac
+import hashlib
+import requests
 import os
 from dotenv import load_dotenv
-from mexc_api.common.enums import Side, OrderType, StreamInterval, Action
+from urllib.parse import urlencode
+from .mexc_withdraw import withdraw
 
 load_dotenv()
 
@@ -10,70 +14,113 @@ class Mexc:
     def __init__(self):
         self.api_key = os.getenv('MEX_API_KEY')
         self.api_secret = os.getenv('MEX_SECRET_KEY')
-        self.client = Spot(self.api_key, self.api_secret)
+        self.base_url = "https://api.mexc.com"
 
+    def _create_signature(self, params):
+        """Create HMAC SHA256 signature for MEXC API."""
+        query_string = urlencode(params)
+        return hmac.new(self.api_secret.encode(), query_string.encode(), hashlib.sha256).hexdigest()
+
+    def _send_request(self, method, endpoint, params=None):
+        """Send a request to MEXC API."""
+        url = f"{self.base_url}{endpoint}"
+        headers = {"X-MEXC-APIKEY": self.api_key}
+        params["timestamp"] = str(int(time.time() * 1000))
+        params["signature"] = self._create_signature(params)
+
+        if method == "GET":
+            response = requests.get(url, headers=headers, params=params)
+        elif method == "POST":
+            response = requests.post(url, headers=headers, params=params)
+        else:
+            raise ValueError("Unsupported HTTP method")
+        print(response.json())
+        return response.json()
+
+    # ✅ Get Deposit Address
     def get_asset_address(self, coin, network):
-        wallet_assets = self.client.wallet.info()
-        base_coin = coin.split("/")[0]  # Extracts "CGPT" from "CGPT/USDT"
-        for asset in wallet_assets:
-            if asset["coin"] == base_coin:
-                for net in asset["networkList"]:
-                    if network.lower() in net["network"].lower():
-                        return net["contract"]  # Return the contract address
-        return None
+        """Retrieve deposit address for a given coin and network."""
+        endpoint = "/api/v3/capital/deposit/address"
+        params = {"coin": coin, "network": network}
+        response = self._send_request("GET", endpoint, params)
+        return response[0]['address']
 
+    # ✅ Get Market Price
     def check_signal(self, trading_pair, price, threshold=0.02):
-        price_data = self.client.market.ticker_price(symbol=trading_pair)
-        market_price = float(price_data[0]['price'])  # Convert to float
+        """Check if the price is near a given threshold."""
+        endpoint = "/api/v3/ticker/price"
+        params = {"symbol": trading_pair}
+        response = self._send_request("GET", endpoint, params)
+
+        market_price = float(response["price"])
         diff = abs(price - market_price) / market_price
         is_near = diff <= threshold
+
         return {
             "market_price": market_price,
             "incoming_price": price,
-            "difference": diff * 100,  # Convert to percentage
+            "difference": diff * 100,
             "is_near": is_near
         }
 
+    # ✅ Withdraw Crypto
     def withdraw(self, amount, coin, network, address):
-        withdraw_amount = self.client.wallet.withdraw(
-            asset=coin,
-            network=network,
+        is_withdraw = withdraw(
+            coin=coin,
             address=address,
-            amount=amount
+            amount=amount,
+            network=network,
         )
-        return withdraw_amount
+        return is_withdraw
 
+    # ✅ Buy Crypto
     def buy_crypto(self, coin, amount):
-        order = self.client.account.new_order(
-            symbol=coin,
-            side=Side.BUY,
-            order_type=OrderType.MARKET,
-            quote_order_quantity=amount
-        )
-        return order
+        """Place a market buy order."""
+        endpoint = "/api/v3/order"
+        params = {
+            "symbol": coin,
+            "side": "BUY",
+            "type": "MARKET",
+            "quoteOrderQty": str(amount)
+        }
+        response = self._send_request("POST", endpoint, params)
+        return response
 
+    # ✅ Get Account Balance
     def check_balance(self, coin):
-        balances = self.client.account.get_account_info()["balances"]
-        print(balances)
-        for asset in balances:
+        """Check account balance for a specific coin."""
+        endpoint = "/api/v3/account"
+        params = {}
+        response = self._send_request("GET", endpoint, params)
+
+        for asset in response["balances"]:
             if asset["asset"] == coin:
-                return asset  # Returns full balance details
+                return asset  # Returns balance details
+
         return None
 
-    def sell_crypto(self, coin, quote_coin, amount):
-        trading_pair = f"{coin}{quote_coin}"  # Format as "BTCUSDT"
-        order = self.client.account.new_order(
-            symbol=trading_pair,
-            side="SELL",
-            type="MARKET",
-            quoteOrderQty=amount
-        )
-        return order
+    # ✅ Sell Crypto
+    def sell_crypto(self, coin, amount):
+        """Sell a cryptocurrency."""
+        endpoint = "/api/v3/order"
+        params = {
+            "symbol": coin,
+            "side": "SELL",
+            "type": "MARKET",
+            "quoteOrderQty": str(amount)
+        }
+        response = self._send_request("POST", endpoint, params)
+        return response
 
+    # ✅ Get Assets by Address
     def get_assets_by_address(self, target_address):
-        wallet_assets = self.client.wallet.info()
+        """Retrieve assets associated with a specific address."""
+        endpoint = "/api/v3/capital/config/getall"
+        params = {}
+        response = self._send_request("GET", endpoint, params)
+
         matching_assets = []
-        for asset in wallet_assets:
+        for asset in response:
             for net in asset.get("networkList", []):
                 if net.get("contract") == target_address:
                     matching_assets.append({
@@ -94,20 +141,31 @@ if __name__ == '__main__':
 
     mexc_data = Mexc()
 
-    # Step 1: Get current market price of MATIC/USDT
-    price_data = mexc_data.client.market.ticker_price(symbol="POLUSDT")
-    matic_price = float(price_data[0]['price'])  # Convert to float
+    # ✅ Get deposit address
+    deposit_address = mexc_data.get_asset_address('POL', 'Polygon(MATIC)')
+    print(f"Deposit Address: {deposit_address}")
 
-    # Step 2: Calculate required USDT to buy 1 MATIC
-    required_usdt = round_amount(matic_price * 3.5, decimals=2)
-    print(required_usdt)
-    # Step 3: Check USDT balance
-    usdt_balance = mexc_data.check_balance("USDT")  # Fetch balance details
-    available_usdt = float(usdt_balance["free"]) if usdt_balance else 0
-
-    if available_usdt >= required_usdt:
-        # Step 4: Buy MATIC with the available USDT
-        order_response = mexc_data.buy_crypto("POLUSDT", required_usdt)
-        print("Order placed:", order_response)
-    else:
-        print("Insufficient USDT balance. Required:", required_usdt, "Available:", available_usdt)
+    # # ✅ Get MATIC/USDT market price
+    # price_data = mexc_data.check_signal("MATICUSDT", price=1.0)
+    # print(price_data)
+    #
+    # # ✅ Withdraw MATIC to an external address
+    # withdraw_response = mexc_data.withdraw(
+    #     amount="1",
+    #     coin="MATIC",
+    #     network="POLYGON",
+    #     address="0x1e269d187c5cc1acc1e25c8eb2938b4690f28038"
+    # )
+    # print(withdraw_response)
+    #
+    # # ✅ Buy crypto (Market order)
+    buy_response = mexc_data.buy_crypto("POL-USDT", amount=10)
+    print(buy_response)
+    #
+    # # ✅ Check account balance
+    # balance = mexc_data.check_balance("MATIC")
+    # print(f"Balance: {balance}")
+    #
+    # # ✅ Sell crypto (Market order)
+    # sell_response = mexc_data.sell_crypto("MATICUSDT", amount=5)
+    # print(sell_response)

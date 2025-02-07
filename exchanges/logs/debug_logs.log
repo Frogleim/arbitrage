@@ -1,0 +1,12 @@
+1.03 beta - 2025-02-07 15:02:30,327 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926150236}
+1.03 beta - 2025-02-07 15:02:47,422 - DEBUG - {'code': 33333, 'msg': 'currency not exists', 'timestamp': 1738926167361}
+1.03 beta - 2025-02-07 15:03:00,804 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926180743}
+1.03 beta - 2025-02-07 15:06:32,294 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926392225}
+1.03 beta - 2025-02-07 15:08:44,979 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926524953}
+1.03 beta - 2025-02-07 15:09:45,490 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926585459}
+1.03 beta - 2025-02-07 15:11:23,101 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926683013}
+1.03 beta - 2025-02-07 15:11:33,832 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926693807}
+1.03 beta - 2025-02-07 15:11:39,683 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926699640}
+1.03 beta - 2025-02-07 15:12:28,653 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926748624}
+1.03 beta - 2025-02-07 15:12:45,839 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926765803}
+1.03 beta - 2025-02-07 15:44:27,351 - DEBUG - {'code': 700002, 'msg': 'Signature for this request is not valid.'}

@@ -5,6 +5,13 @@ from urllib.parse import urlencode
 import hmac
 from hashlib import sha256
 import time
+from .get_api import sell
+import urllib.parse
+from .bingx_buy import buy_crypto
+from .bingx_withraw import withdraw
+from .bingx_sell import sell
+
+import hashlib
 
 load_dotenv()
 
@@ -16,9 +23,15 @@ class BingX:
         print(f"API Key: {self.api_key}")
         self.base_url = 'https://open-api.bingx.com'
 
-    def _get_sign(self, payload):
-        signature = hmac.new(self.api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=sha256).hexdigest()
-        print("sign=" + signature)
+    def _get_sign(self, params):
+        """Generate HMAC SHA256 signature for BingX API"""
+        # Sort the dictionary by keys and URL-encode it
+        query_string = urllib.parse.urlencode(sorted(params.items()))
+        signature = hmac.new(
+            self.api_secret.encode("utf-8"),
+            query_string.encode("utf-8"),
+            hashlib.sha256
+        ).hexdigest()
         return signature
 
     @staticmethod
@@ -41,11 +54,14 @@ class BingX:
 
     def _signed_request(self, method, endpoint, params=None):
         params = params or {}
-        params.update({
-            'timestamp': int(time.time() * 1000),
-            'recvWindow': 5000
-        })
-        # ✅ Convert params to a query string before signing
+        # Only add 'timestamp' if it is not already provided.
+        if 'timestamp' not in params:
+            params['timestamp'] = int(time.time() * 1000)
+        # Add recvWindow only if the API endpoint expects it.
+        if endpoint not in ['/openApi/wallets/v1/capital/deposit/address']:
+            params.setdefault('recvWindow', 5000)
+
+        # Generate signature over the exact parameters
         signature = self._get_sign(params)
         params['signature'] = signature
 
@@ -62,22 +78,19 @@ class BingX:
 
     def get_asset_address(self, network, coin):
         """Fetch the deposit address for a given coin and network."""
-        curr_time = str(int(time.time() * 1000))
-        coin = coin.replace('USDT', '')  # Extract only the coin name
+        # Remove "USDT" if that’s how your coin names are expected.
+        coin = coin.replace('USDT', '')
         endpoint = '/openApi/wallets/v1/capital/deposit/address'
         method = 'GET'
         paramsMap = {
-            "timestamp": curr_time,
             "coin": coin,
         }
-
         result = self._signed_request(method=method, endpoint=endpoint, params=paramsMap)
         print(result)  # Debugging
 
         for data in result.get('data', {}).get('data', []):
             if data['coin'] == coin and network == data['network']:
                 return data.get('addressWithPrefix', 'No address found')
-
         return None
 
     def check_signal(self, trading_pair, price=None, threshold=0.02):
@@ -106,66 +119,17 @@ class BingX:
 
     def withdraw(self, coin, address, amount, network):
         """Withdraw crypto to a given address."""
-        payload = {}
-
-        endpoint = '/openApi/wallets/v1/capital/withdraw/apply'
-        APIURL = "https://open-api.bingx.com"
-        method = 'POST'
-        paramsMap = {
-            "address": address,
-            "addressTag": "None",
-            "amount": str(amount),
-            "coin": coin,
-            "network": network,
-            "timestamp": str(int(time.time() * 1000)),
-            "walletType": "1"
-
-        }
-        paramsStr = self._parseParam(paramsMap)
-        url = "%s%s?%s&signature=%s" % (APIURL, endpoint, paramsStr, self._get_sign(paramsStr))
-        headers = {
-            'X-BX-APIKEY': self.api_key,
-        }
-        response = requests.request(method, url, headers=headers, data=payload)
-        return response
+        withdraw(address, coin, amount, network)
+        return True
 
     def buy_crypto(self, symbol, quantity, price=None, order_type="MARKET"):
         """Place a buy order."""
-        endpoint = "/openApi/spot/v1/trade/order"
-        paramsMap = {
-            "symbol": symbol.replace('USDT', '-USDT'),
-            "side": "BUY",
-            "type": order_type,
-            "quantity": str(quantity),
-            "timestamp": str(int(time.time() * 1000))
-        }
-        if order_type == "LIMIT" and price:
-            paramsMap["price"] = str(price)
-            paramsMap["timeInForce"] = "GTC"
-
-        result = self._signed_request(method="POST", endpoint=endpoint, params=paramsMap)
-        return result
+        res = buy_crypto(symbol, quantity)
+        return res
 
     def sell_crypto(self, symbol, quantity, price=None, order_type="MARKET"):
         """Place a sell order."""
-        payload = {}
-        timestamp = str(int(time.time() * 1000))
-
-        path = '/openApi/spot/v1/trade/order'
-        method = "POST"
-        paramsMap = {
-            "type": "MARKET",
-            "symbol": symbol.replace('USDT', '-USDT'),
-            "side": "SELL",
-            "quantity": quantity,
-            "newClientOrderId": "",
-            "recvWindow": 1000,
-            "timeInForce": "GTC",
-            "timestamp": int(timestamp),
-        }
-        print(paramsMap)
-        paramsStr = self._parseParam(paramsMap)
-        return self.send_request(method, path, paramsStr, payload)
+        return sell(coin=symbol, quantity=float(quantity))
 
     def check_balance(self, coin=None):
         """Retrieve account balance. If `coin` is provided, return balance for that coin."""
@@ -190,21 +154,21 @@ if __name__ == '__main__':
     # ✅ Get deposit address
     coin = 'POLUSDT'
     network = 'POLYGON'
-    asset = bingx_data.get_asset_address(network, coin)
-    print(f"Deposit Address: {asset}")
-
-    # ✅ Check balance
-    balance = bingx_data.check_balance('POL')
-    print(f"Balance: {balance}")
-
-    # ✅ Place a market buy order
+    # asset = bingx_data.get_asset_address(network, coin)
+    # print(f"Deposit Address: {asset}")
+    #
+    # # ✅ Check balance
+    # balance = bingx_data.check_balance('POL')
+    # print(f"Balance: {balance}")
+    #
+    # # ✅ Place a market buy order
     # buy_order = bingx_data.buy_crypto("POLUSDT", 10)
     # print(f"Buy Order: {buy_order}")
 
-    # ✅ Place a market sell order
+    # # ✅ Place a market sell order
     sell_order = bingx_data.sell_crypto("POLUSDT", 3)
     print(f"Sell Order: {sell_order}")
 
-    # ✅ Withdraw
+    # # ✅ Withdraw
     # withdrawal = bingx_data.withdraw("POL", "0x1e269d187c5cc1acc1e25c8eb2938b4690f28038", 1, "POLYGON")
     # print(f"Withdrawal: {withdrawal}")

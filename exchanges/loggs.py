@@ -12,7 +12,7 @@ files_dir = os.path.join(grandparent_dir, r"arbitrage/exchanges")
 user_count = None
 actions_log_file_path = os.path.join(files_dir, 'logs', 'actions.log')
 error_logs_log_file_path = os.path.join(files_dir, 'logs', 'error_logs.log')
-finish_trade_log_file_path = os.path.join(files_dir, 'logs', 'finish_trade_log.log')
+debug_logs_log_file_path = os.path.join(files_dir, 'logs', 'debug_logs.log')
 system_logs_log_file_path = os.path.join(files_dir, 'logs', 'system_logs.log')
 print(system_logs_log_file_path)
 # Configure the 'actions.log' logger
@@ -29,3 +29,10 @@ system_log.setLevel(logging.INFO)
 system_log_handler = logging.FileHandler(system_logs_log_file_path)
 system_log_handler.setFormatter(logging.Formatter(f'{version} - %(asctime)s - %(levelname)s - %(message)s'))
 system_log.addHandler(system_log_handler)
+
+
+debug_log = logging.getLogger('debug_log')
+debug_log.setLevel(logging.DEBUG)
+debug_log_handler = logging.FileHandler(debug_logs_log_file_path)
+debug_log_handler.setFormatter(logging.Formatter(f'{version} - %(asctime)s - %(levelname)s - %(message)s'))
+debug_log.addHandler(debug_log_handler)
