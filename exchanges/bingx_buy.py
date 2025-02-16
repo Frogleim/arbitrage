@@ -54,4 +54,4 @@ def parseParam(paramsMap):
 
 
 if __name__ == '__main__':
-    print("demo:", demo())
+    print("demo:", buy_crypto(coin='SOL', quantity=100))

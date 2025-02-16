@@ -5,9 +5,9 @@ from decimal import Decimal, ROUND_DOWN
 signal_example = {
     "symbol": "POLUSDT",
     "network": "POLYGON",
-    "quantity": 10,
-    "price": 0.3183,
-    "exchange": "BINGX"
+    "quantity": 3.5,
+    "price": 0.2999,
+    "exchange": "MEXC"
 }
 
 def convert_network_name(network: str) -> str:
@@ -20,7 +20,7 @@ def round_amount(amount, decimals=2):
     return Decimal(amount).quantize(Decimal(f'1.{"0" * decimals}'), rounding=ROUND_DOWN)
 
 
-def get_signal():
+def get_signal(signal_example=None):
     if signal_example['exchange'] == 'MEXC':
         mex = mexc_exchange.Mexc()
         data = mex.check_signal(trading_pair=signal_example['symbol'], price=signal_example['price'])
@@ -71,7 +71,7 @@ def start_arbitrage():
             loggs.system_log.info(
                 f"Buying {signal_example['symbol']} with quantity {signal_example['quantity']} on MEXC")
             if available_usdt >= required_usdt:
-                order_response = mex.buy_crypto(signal_example['symbol'], signal_example['quantity'])
+                order_response = mex.buy_crypto(signal_example['symbol'], required_usdt)
                 loggs.system_log.info(f"Order placed: {order_response}")
             else:
                 loggs.system_log.info(
@@ -86,7 +86,7 @@ def start_arbitrage():
                 network = convert_network_name(signal_example['network'])
                 print(f'Symbol: {coin.replace("USDT", "")} Network: {network}')
                 is_withdraw = mex.withdraw(
-                    amount=required_usdt,
+                    amount=signal_example['quantity'] - 0.05,
                     coin=coin.replace('USDT', ''),
                     network=network,
                     address=addr

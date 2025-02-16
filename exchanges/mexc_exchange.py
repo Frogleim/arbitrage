@@ -45,6 +45,13 @@ class Mexc:
         response = self._send_request("GET", endpoint, params)
         return response[0]['address']
 
+    def get_last_price(self, symbol):
+        """Retrieve last price for a given symbol."""
+        endpoint = "/api/v3/ticker/price"
+        params = {"symbol": symbol}
+        response = self._send_request("GET", endpoint, params)
+        return response['price']
+
     # ✅ Get Market Price
     def check_signal(self, trading_pair, price, threshold=0.02):
         """Check if the price is near a given threshold."""
