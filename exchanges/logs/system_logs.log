@@ -10868,3 +10868,22 @@
 1.03 beta - 2025-02-15 21:40:04,447 - INFO - Monitoring position
 1.03 beta - 2025-02-15 21:40:04,757 - INFO - 0.3173
 1.03 beta - 2025-02-15 21:40:04,757 - INFO - Monitoring position
+1.03 beta - 2025-02-18 13:13:54,043 - INFO - Signal received: {
+    "token": "AMB",
+    "exchange_from": "MEXC",
+    "exchange_to": "Binance",
+    "price_from": 0.00230599,
+    "price_to": 0.00231903,
+    "volume_from": 15109.2,
+    "volume_to": 15194.8,
+    "orders_count_from": 4,
+    "orders_count_to": 3,
+    "quantity_from": 6550000.0,
+    "quantity_to": 6550000.0,
+    "spot_fee": 22.75,
+    "transfer_fee": 0.01,
+    "network": "AMB",
+    "spread_value": 62.9,
+    "spread_percent": 0.41,
+    "lifetime": "00:02"
+}

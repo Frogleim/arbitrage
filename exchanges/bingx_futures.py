@@ -8,8 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 APIURL = "https://open-api.bingx.com"
-APIKEY = os.getenv('BINGX_API_KEY')
-SECRETKEY = os.getenv('BINGX_SECRET_KEY')
+
 
 
 def close_postion(symbol):
@@ -37,7 +36,7 @@ def get_market_price(symbol):
         raise Exception(f"Error fetching market price: {data}")
 
 
-def open_trade(symbol, exit_price, quantity):
+def open_trade(symbol, exit_price, quantity, api_key, api_secret):
     """Open a short market order using the current market price as entry."""
     entry_price = get_market_price(symbol)
     path = '/openApi/swap/v2/trade/order'
@@ -55,7 +54,7 @@ def open_trade(symbol, exit_price, quantity):
     }
 
     paramsStr = parseParam(paramsMap)
-    return send_request(method, path, paramsStr, {})
+    return send_request(method, path, paramsStr, {}, api_key, api_secret)
 
 
 def get_sign(api_secret, payload):
@@ -64,11 +63,11 @@ def get_sign(api_secret, payload):
     return signature
 
 
-def send_request(method, path, urlpa, payload):
+def send_request(method, path, urlpa, payload, api_secret, api_key):
     """Send a request to the BingX API."""
-    url = f"{APIURL}{path}?{urlpa}&signature={get_sign(SECRETKEY, urlpa)}"
+    url = f"{APIURL}{path}?{urlpa}&signature={get_sign(api_secret, urlpa)}"
     headers = {
-        'X-BX-APIKEY': APIKEY,
+        'X-BX-APIKEY': api_key,
     }
     response = requests.request(method, url, headers=headers, data=payload)
     print(response.json())

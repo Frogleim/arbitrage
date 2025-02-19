@@ -11,9 +11,9 @@ load_dotenv()
 
 
 class Mexc:
-    def __init__(self):
-        self.api_key = os.getenv('MEX_API_KEY')
-        self.api_secret = os.getenv('MEX_SECRET_KEY')
+    def __init__(self, api_key, api_secret):
+        self.api_key = api_key
+        self.api_secret = api_secret
         self.base_url = "https://api.mexc.com"
 
     def _create_signature(self, params):

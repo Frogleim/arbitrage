@@ -11,8 +11,7 @@ load_dotenv()
 
 # ✅ MEXC API credentials
 APIURL = "https://contract.mexc.com"
-APIKEY = os.getenv('MEX_API_KEY')
-SECRETKEY = os.getenv('MEX_SECRET_KEY')
+
 
 
 def get_timestamp():
@@ -27,12 +26,12 @@ def get_signature(api_secret, payload):
     return signature
 
 
-def send_request(method, endpoint, params):
+def send_request(method, endpoint, params, api_key, api_secret):
     """Send a signed request to the MEXC API."""
-    url = f"{APIURL}{endpoint}?{params}&signature={get_signature(SECRETKEY, params)}"
+    url = f"{APIURL}{endpoint}?{params}&signature={get_signature(api_secret, params)}"
 
     headers = {
-        "X-MEXC-APIKEY": APIKEY,
+        "X-MEXC-APIKEY": api_key,
     }
 
     print(f"🔍 Sending Request to: {url}")  # ✅ Debugging

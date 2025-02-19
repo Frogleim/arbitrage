@@ -11,8 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 APIURL = "https://open-api.bingx.com"
-APIKEY = os.getenv('BINGX_API_KEY')
-SECRETKEY = os.getenv('BINGX_SECRET_KEY')
+
 
 def withdraw(address, coin, amount, network):
     payload = {}
@@ -36,11 +35,11 @@ def get_sign(api_secret, payload):
     return signature
 
 
-def send_request(method, path, urlpa, payload):
-    url = "%s%s?%s&signature=%s" % (APIURL, path, urlpa, get_sign(SECRETKEY, urlpa))
+def send_request(method, path, urlpa, payload, api_secret, api_key):
+    url = "%s%s?%s&signature=%s" % (APIURL, path, urlpa, get_sign(api_secret, urlpa))
     print(url)
     headers = {
-        'X-BX-APIKEY': APIKEY,
+        'X-BX-APIKEY': api_key,
     }
     response = requests.request(method, url, headers=headers, data=payload)
     print(response.json())

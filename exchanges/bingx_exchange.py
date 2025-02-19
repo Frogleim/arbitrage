@@ -17,9 +17,9 @@ load_dotenv()
 
 
 class BingX:
-    def __init__(self):
-        self.api_key = os.getenv('BINGX_API_KEY')
-        self.api_secret = os.getenv('BINGX_SECRET_KEY')
+    def __init__(self, api_key, api_secret):
+        self.api_key = api_key
+        self.api_secret = api_secret
         print(f"API Key: {self.api_key}")
         self.base_url = 'https://open-api.bingx.com'
 
