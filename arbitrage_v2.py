@@ -78,6 +78,7 @@ def buy_crypto(signal_data, api_keys: list):
         api_key=api_keys[2],
         api_secret=api_keys[3]
     )
+    return True
         # loggs.system_log.info("Opening position in BingX")
         # while True:
         #     loggs.system_log.info("Monitoring position")
