@@ -48,7 +48,7 @@ class Mexc:
     def get_last_price(self, symbol):
         """Retrieve last price for a given symbol."""
         endpoint = "/api/v3/ticker/price"
-        params = {"symbol": symbol}
+        params = {"symbol": f"{symbol}USDT"}
         response = self._send_request("GET", endpoint, params)
         return response['price']
 
@@ -81,14 +81,15 @@ class Mexc:
         return is_withdraw
 
     # ✅ Buy Crypto
-    def buy_crypto(self, coin, amount):
+    def buy_crypto(self, coin, amount=None):
         """Place a market buy order."""
+        last_price = self.get_last_price(coin)
         endpoint = "/api/v3/order"
         params = {
-            "symbol": coin,
+            "symbol": f"{coin}USDT",
             "side": "BUY",
             "type": "MARKET",
-            "quoteOrderQty": str(amount)
+            "quoteOrderQty": str(10)
         }
         response = self._send_request("POST", endpoint, params)
         return response
@@ -146,7 +147,10 @@ if __name__ == '__main__':
         return Decimal(amount).quantize(Decimal(f'1.{"0" * decimals}'), rounding=ROUND_DOWN)
 
 
-    mexc_data = Mexc()
+    MEX_API_KEY = 'mx0vglFXKQlvzxMy6T'
+    MEX_SECRET_KEY = '4004ef44894b45cdbfba900079a4c5f2'
+
+    mexc_data = Mexc(MEX_API_KEY, MEX_SECRET_KEY)
 
     # ✅ Get deposit address
     deposit_address = mexc_data.get_asset_address('POL', 'Polygon(MATIC)')
@@ -166,7 +170,7 @@ if __name__ == '__main__':
     # print(withdraw_response)
     #
     # # ✅ Buy crypto (Market order)
-    buy_response = mexc_data.buy_crypto("POL-USDT", amount=10)
+    buy_response = mexc_data.buy_crypto("B3", amount=10)
     print(buy_response)
     #
     # # ✅ Check account balance

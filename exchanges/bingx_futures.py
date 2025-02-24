@@ -49,7 +49,7 @@ def open_trade(symbol, exit_price, quantity, api_key, api_secret):
         "side": "SELL",
         "positionSide": "SHORT",
         "type": "MARKET",
-        "quantity": quantity,
+        "quantity": str(10),
         "takeProfit": take_profit,
     }
 

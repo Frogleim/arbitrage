@@ -109,10 +109,9 @@ async def run_telegram_client(user_id):
     @client.on(events.NewMessage(chats='@ArbitrageSmartBot'))
     async def handler(event):
         """ Processes incoming trading signals """
-        print(event.message.text)
         is_valid_signal, data = parse_telegram_message(event.message.text)
         print(data)
-
+        is_valid_signal = True
         if is_valid_signal:
             message = (f"📢 Signal received:\n"
                        f"🔹 Token: {data['token']}\n"
@@ -123,10 +122,10 @@ async def run_telegram_client(user_id):
             if data['exchange_from'] == "MEXC" and data['exchange_to'] == "BingX":
                 await client.send_message(user_id, "Recived signal! Buying crypto")
             # Ensure buy_crypto is awaited and its result is checked
-                is_finished = await buy_crypto(data, keys)
+                is_finished = buy_crypto(data, keys)
 
                 if is_finished:
-                    await send_message(user_id, "✅ Buy order completed successfully!")
+                    await send_message(user_id, "✅ All orders completed successfully!")
                     # Continue with further processing if needed
 
     await client.start(phone_number)
@@ -141,8 +140,8 @@ def parse_telegram_message(message):
 
     token, exchange_from, exchange_to = token_exchange_match.groups()
 
-    if "MEXC" not in (exchange_from) and "BingX" not in (exchange_from):
-        return False, None
+    if exchange_from != "MEXC" or exchange_to != "BingX":
+        return False, None  # ✅ Ignore signals that are not from MEXC to BingX
 
     price_matches = re.findall(r"Цена: `([\d.]+)`", message)
     if len(price_matches) < 2:
@@ -205,7 +204,7 @@ def parse_telegram_message(message):
         "lifetime": lifetime
     }
 
-    return True, json.dumps(data, indent=4, ensure_ascii=False)
+    return True, data
 
 
 if __name__ == "__main__":

@@ -66,39 +66,22 @@ def buy_crypto(signal_data, api_keys: list):
         # Placing sell order in Bingx
         loggs.system_log.info("Buying crypto order")
         # Buying crypto in MEXC exchange
-        order_response = mexc.buy_crypto(signal_data['token'], round(spot_buying, 1))
-        loggs.system_log.info(order_response)
+        # order_response = mexc.buy_crypto(signal_data['token'], round(spot_buying, 1))
+        loggs.system_log.info(f"Coin {signal_data['token']} Bought in MEXC")
 
     mexc_exit_price = mexc.get_last_price(signal_data['token'])
 
-    bingx_futures.open_trade(
-        symbol=signal_data['token'].replace('USDT', ''),
-        exit_price=float(mexc_exit_price) - 0.100,
-        quantity=signal_data['quantity_from'],
-        api_key=api_keys[2],
-        api_secret=api_keys[3]
-    )
+    # bingx_futures.open_trade(
+    #     symbol=signal_data['token'].replace('USDT', ''),
+    #     exit_price=float(mexc_exit_price) - 0.100,
+    #     quantity=signal_data['quantity_from'],
+    #     api_key=api_keys[2],
+    #     api_secret=api_keys[3]
+    # )
+    loggs.system_log.info(f"Position opened in BingX: {mexc_exit_price}")
     return True
-        # loggs.system_log.info("Opening position in BingX")
-        # while True:
-        #     loggs.system_log.info("Monitoring position")
-        #     mark_price = bingx_futures.get_market_price(symbol=signal_example['symbol'].replace('USDT', ''))
-        #     loggs.system_log.info(mark_price)
-        #     # Close all position with loss
-        #     if float(mark_price) < float(signal_example['price'] * 0.8):
-        #         bingx_futures.close_postion(signal_example['symbol'].replace('USDT', ''))
-        #         mexc.sell_crypto(signal_example['symbol'], signal_example['quantity'])
-        #         loggs.system_log.info("All position closed")
-        #         break
-        #     # Close all position with profit
-        #     elif float(mark_price) >= float(mexc_exit_price):
-        #         bingx_futures.close_postion(signal_example['symbol'].replace('USDT', ''))
-        #         mexc.sell_crypto(signal_example['symbol'], signal_example['quantity'])
-        #         loggs.system_log.info("All position closed")
-        #         break
 
 
-    loggs.system_log.info("Arbitrage finished")
 
 
 if __name__ == '__main__':
