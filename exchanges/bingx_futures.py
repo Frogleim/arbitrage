@@ -31,30 +31,35 @@ def get_market_price(symbol):
     data = response.json()
     print(data)
     if data.get("code") == 0:
-        return float(data["data"]["price"])
+        return True, float(data["data"]["price"])
     else:
-        raise Exception(f"Error fetching market price: {data}")
+        return False, None
 
 
 def open_trade(symbol, exit_price, quantity, api_key, api_secret):
     """Open a short market order using the current market price as entry."""
-    entry_price = get_market_price(symbol)
+    is_valid, entry_price = get_market_price(symbol)
     path = '/openApi/swap/v2/trade/order'
+    try:
+        if is_valid:
+            take_profit = f'{{"type": "TAKE_PROFIT_MARKET", "stopPrice": {exit_price}, "price": {entry_price}, "workingType": "MARK_PRICE"}}'
 
-    take_profit = f'{{"type": "TAKE_PROFIT_MARKET", "stopPrice": {exit_price}, "price": {entry_price}, "workingType": "MARK_PRICE"}}'
+            method = "POST"
+            paramsMap = {
+                "symbol": f"{symbol}-USDT",
+                "side": "SELL",
+                "positionSide": "SHORT",
+                "type": "MARKET",
+                "quantity": str(10),
+                "takeProfit": take_profit,
+            }
 
-    method = "POST"
-    paramsMap = {
-        "symbol": f"{symbol}-USDT",
-        "side": "SELL",
-        "positionSide": "SHORT",
-        "type": "MARKET",
-        "quantity": str(10),
-        "takeProfit": take_profit,
-    }
-
-    paramsStr = parseParam(paramsMap)
-    return send_request(method, path, paramsStr, {}, api_key, api_secret)
+            paramsStr = parseParam(paramsMap)
+            return True, send_request(method, path, paramsStr, {}, api_key, api_secret)
+        else:
+            return False, None
+    except Exception as e:
+        return False, e
 
 
 def get_sign(api_secret, payload):

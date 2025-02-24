@@ -63,24 +63,27 @@ def buy_crypto(signal_data, api_keys: list):
     print(f"Buying quantity: {final_quantity}")
     # if exchange == 'MEXC' and is_valid:
     for _ in range(signal_data['orders_count_from']):
-        # Placing sell order in Bingx
         loggs.system_log.info("Buying crypto order")
-        # Buying crypto in MEXC exchange
-        # order_response = mexc.buy_crypto(signal_data['token'], round(spot_buying, 1))
-        loggs.system_log.info(f"Coin {signal_data['token']} Bought in MEXC")
+        try:
+            order_response = mexc.buy_crypto(signal_data['token'], round(spot_buying, 1))
+            loggs.system_log.info(f"Coin {signal_data['token']} Bought in MEXC")
+        except Exception as e:
+            return False, f"Error while trying to buy crypto in MEXC spot: {e}"
 
     mexc_exit_price = mexc.get_last_price(signal_data['token'])
 
-    # bingx_futures.open_trade(
-    #     symbol=signal_data['token'].replace('USDT', ''),
-    #     exit_price=float(mexc_exit_price) - 0.100,
-    #     quantity=signal_data['quantity_from'],
-    #     api_key=api_keys[2],
-    #     api_secret=api_keys[3]
-    # )
-    loggs.system_log.info(f"Position opened in BingX: {mexc_exit_price}")
-    return True
-
+    is_valid, msg = bingx_futures.open_trade(
+        symbol=signal_data['token'].replace('USDT', ''),
+        exit_price=float(mexc_exit_price) - 0.100,
+        quantity=signal_data['quantity_from'],
+        api_key=api_keys[2],
+        api_secret=api_keys[3]
+    )
+    if is_valid:
+        loggs.system_log.info(f"Position opened in BingX: {mexc_exit_price}\nMEXC spot order completed successfully!")
+        return True, msg
+    else:
+        return False, f'Crypto {signal_data["token"]} doesnt exist in BingX Futures'
 
 
 
