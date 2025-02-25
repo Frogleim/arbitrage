@@ -81,7 +81,7 @@ class Mexc:
         return is_withdraw
 
     # ✅ Buy Crypto
-    def buy_crypto(self, coin, amount=None):
+    def buy_crypto(self, coin, price=None, amount=None):
         """Place a market buy order."""
         last_price = self.get_last_price(coin)
         endpoint = "/api/v3/order"
@@ -89,6 +89,7 @@ class Mexc:
             "symbol": f"{coin}USDT",
             "side": "BUY",
             "type": "MARKET",
+            # "price": price,
             "quoteOrderQty": str(10)
         }
         response = self._send_request("POST", endpoint, params)
@@ -100,12 +101,8 @@ class Mexc:
         endpoint = "/api/v3/account"
         params = {}
         response = self._send_request("GET", endpoint, params)
+        return response
 
-        for asset in response["balances"]:
-            if asset["asset"] == coin:
-                return asset  # Returns balance details
-
-        return None
 
     # ✅ Sell Crypto
     def sell_crypto(self, coin, amount):
@@ -170,12 +167,12 @@ if __name__ == '__main__':
     # print(withdraw_response)
     #
     # # ✅ Buy crypto (Market order)
-    buy_response = mexc_data.buy_crypto("B3", amount=10)
-    print(buy_response)
-    #
+    # buy_response = mexc_data.buy_crypto("B3", amount=10)
+    # print(buy_response)
+    # #
     # # ✅ Check account balance
-    # balance = mexc_data.check_balance("MATIC")
-    # print(f"Balance: {balance}")
+    balance = mexc_data.check_balance("MATIC")
+    print(f"Balance: {balance}")
     #
     # # ✅ Sell crypto (Market order)
     # sell_response = mexc_data.sell_crypto("MATICUSDT", amount=5)

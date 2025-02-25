@@ -2,26 +2,21 @@ import time
 import requests
 import hmac
 from hashlib import sha256
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+import loggs
 
 APIURL = "https://open-api.bingx.com"
 
 
-
-def close_postion(symbol):
+def close_position(symbol, api_key, api_secret):
     payload = {}
     path = '/openApi/swap/v2/trade/closeAllPositions'
     method = "POST"
     paramsMap = {
-    "timestamp": str(int(time.time() * 1000)),
-    "symbol": f"{symbol}-USDT"
-}
+        "timestamp": str(int(time.time() * 1000)),
+        "symbol": f"{symbol}-USDT"
+    }
     paramsStr = parseParam(paramsMap)
-    return send_request(method, path, paramsStr, payload)
-
+    return send_request(method, path, paramsStr, payload, api_key, api_secret)
 
 
 def get_market_price(symbol):
@@ -36,12 +31,37 @@ def get_market_price(symbol):
         return False, None
 
 
+def set_leverage(symbol,  api_key, api_secret, leverage=10):
+
+    """Setting coin leverage."""
+
+    payload = {}
+    path = '/openApi/swap/v2/trade/leverage'
+    method = "POST"
+    paramsMap = {
+    "leverage": str(leverage),
+    "side": "SHORT",
+    "symbol": f"{symbol}-USDT",
+    "timestamp": str(int(time.time() * 1000))
+}
+    paramsStr = parseParam(paramsMap)
+    return send_request(method, path, paramsStr, payload, api_key, api_secret)
+
+def get_sign(api_secret, payload):
+    signature = hmac.new(api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=sha256).hexdigest()
+    print("sign=" + signature)
+    return signature
+
 def open_trade(symbol, exit_price, quantity, api_key, api_secret):
     """Open a short market order using the current market price as entry."""
-    is_valid, entry_price = get_market_price(symbol)
-    path = '/openApi/swap/v2/trade/order'
     try:
+        is_valid, entry_price = get_market_price(symbol)
         if is_valid:
+            res = set_leverage(symbol, api_key, api_secret)
+            loggs.system_log.info(f"leverage={res}")
+            exit_price = float(exit_price) * 0.9
+            path = '/openApi/swap/v2/trade/order'
+
             take_profit = f'{{"type": "TAKE_PROFIT_MARKET", "stopPrice": {exit_price}, "price": {entry_price}, "workingType": "MARK_PRICE"}}'
 
             method = "POST"
@@ -50,26 +70,27 @@ def open_trade(symbol, exit_price, quantity, api_key, api_secret):
                 "side": "SELL",
                 "positionSide": "SHORT",
                 "type": "MARKET",
-                "quantity": str(10),
+                "quantity": 10,
                 "takeProfit": take_profit,
             }
 
             paramsStr = parseParam(paramsMap)
-            return True, send_request(method, path, paramsStr, {}, api_key, api_secret)
+            return True, 'Ok'
         else:
             return False, None
+
     except Exception as e:
-        return False, e
+        return False, str(e)
+
 
 
 def get_sign(api_secret, payload):
     """Generate HMAC SHA256 signature."""
-    signature = hmac.new(api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=sha256).hexdigest()
-    return signature
+    return hmac.new(api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=sha256).hexdigest()
 
 
-def send_request(method, path, urlpa, payload, api_secret, api_key):
-    """Send a request to the BingX API."""
+def send_request(method, path, urlpa, payload, api_key, api_secret):
+    """Send a request to the BingX API with passed API credentials."""
     url = f"{APIURL}{path}?{urlpa}&signature={get_sign(api_secret, urlpa)}"
     headers = {
         'X-BX-APIKEY': api_key,
@@ -88,10 +109,25 @@ def parseParam(paramsMap):
 
 if __name__ == '__main__':
     try:
-        entry_price = get_market_price()
+        # Use your API keys
+        BINGX_API_KEY = "B4Ugtf2PRyE9lOjr8QEWS0OmjLR4D1LueKhhkupGBOTU9dAjMVShOJNKmAtnjkc0Yh6NhSyZjI4rIIFfmsXLQ"
+        BINGX_SECRET_KEY = "b57tloU10BxiNpc6sKe6kiue9tSxws8WLMkv4hABkitBPBOP5hAV6WalzR2YrwKRuLvE26h6xNuLOXb8MmgQ"
+
+        entry_price = get_market_price(symbol='BTC')
         print(f"Current Market Price: {entry_price}")
-        # response = open_trade(exit_price=entry_price * 0.02, quantity=0.01)  # Example TP 2% above
-        response = close_postion(symbol='POL')
+
+        response = open_trade(
+            symbol='BTC',
+            exit_price=entry_price,  # Example TP 2% above
+            quantity=0.01,
+            api_key=BINGX_API_KEY,
+            api_secret=BINGX_SECRET_KEY
+        )
+
         print("Trade Response:", response)
     except Exception as e:
         print("Error:", e)
+
+
+        # B4Ugtf2PRyE9lOjr8QEWS0OmjLR4D1LueKhhkupGBOTU9dAjMVShOJNKmAtnjkc0Yh6NhSyZjI4rIIFfmsXLQ
+        # b57tloU10BxiNpc6sKe6kiue9tSxws8WLMkv4hABkitBPBOP5hAV6WalzR2YrwKRuLvE26h6xNuLOXb8MmgQ

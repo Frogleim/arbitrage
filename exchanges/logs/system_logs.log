@@ -128,3 +128,55 @@
 1.03 beta - 2025-02-24 16:34:27,537 - INFO - Coin SUNCAT Bought in MEXC
 1.03 beta - 2025-02-24 16:34:27,537 - INFO - Buying crypto order
 1.03 beta - 2025-02-24 16:34:28,372 - INFO - Coin SUNCAT Bought in MEXC
+1.03 beta - 2025-02-24 18:02:07,970 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 18:02:08,839 - INFO - Coin BROCCOLIF3B Bought in MEXC
+1.03 beta - 2025-02-24 18:02:08,839 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 18:02:09,706 - INFO - Coin BROCCOLIF3B Bought in MEXC
+1.03 beta - 2025-02-24 23:01:07,320 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:01:08,103 - INFO - Coin BTC Bought in MEXC
+1.03 beta - 2025-02-24 23:01:09,641 - INFO - Position opened in BingX: 94214.7
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-24 23:01:09,748 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:01:11,027 - INFO - Coin BTC Bought in MEXC
+1.03 beta - 2025-02-24 23:01:49,833 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:01:50,688 - INFO - Coin RAY Bought in MEXC
+1.03 beta - 2025-02-24 23:01:52,238 - INFO - Position opened in BingX: 3.1275
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-24 23:01:52,402 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:01:53,150 - INFO - Coin RAY Bought in MEXC
+1.03 beta - 2025-02-24 23:01:54,601 - INFO - Position opened in BingX: 3.1275
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-24 23:01:54,603 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:01:55,368 - INFO - Coin RAY Bought in MEXC
+1.03 beta - 2025-02-24 23:01:55,891 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:02:41,754 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:02:42,638 - INFO - Coin RAY Bought in MEXC
+1.03 beta - 2025-02-24 23:02:44,025 - INFO - Position opened in BingX: 3.11
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-24 23:02:44,026 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:02:44,789 - INFO - Coin RAY Bought in MEXC
+1.03 beta - 2025-02-24 23:02:46,144 - INFO - Position opened in BingX: 3.11
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-24 23:02:46,404 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:02:47,137 - INFO - Coin RAY Bought in MEXC
+1.03 beta - 2025-02-24 23:02:48,162 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:12:42,367 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:12:43,240 - INFO - {'msg': 'price and quantity can not be null', 'code': 500}
+1.03 beta - 2025-02-24 23:12:43,240 - INFO - Coin FAI Bought in MEXC
+1.03 beta - 2025-02-24 23:12:45,097 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:12:45,862 - INFO - {'msg': 'price and quantity can not be null', 'code': 500}
+1.03 beta - 2025-02-24 23:12:45,863 - INFO - Coin FAI Bought in MEXC
+1.03 beta - 2025-02-24 23:12:46,603 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:12:47,358 - INFO - {'msg': 'price and quantity can not be null', 'code': 500}
+1.03 beta - 2025-02-24 23:12:47,358 - INFO - Coin FAI Bought in MEXC
+1.03 beta - 2025-02-24 23:12:48,167 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:12:48,920 - INFO - {'msg': 'price and quantity can not be null', 'code': 500}
+1.03 beta - 2025-02-24 23:12:48,920 - INFO - Coin FAI Bought in MEXC
+1.03 beta - 2025-02-24 23:12:49,670 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:12:50,432 - INFO - {'msg': 'price and quantity can not be null', 'code': 500}
+1.03 beta - 2025-02-24 23:12:50,432 - INFO - Coin FAI Bought in MEXC
+1.03 beta - 2025-02-24 23:12:51,092 - INFO - Buying crypto order
+1.03 beta - 2025-02-24 23:12:51,858 - INFO - {'msg': 'price and quantity can not be null', 'code': 500}
+1.03 beta - 2025-02-24 23:12:51,862 - INFO - Coin FAI Bought in MEXC
+1.03 beta - 2025-02-24 23:12:53,358 - INFO - Buying crypto order
+1.03 beta - 2025-02-25 15:49:12,288 - INFO - leverage={'code': 100413, 'msg': 'Incorrect apiKey, please check your valid api key in https://bingx.com/en/account/api', 'timestamp': 1740484152212}

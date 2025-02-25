@@ -164,6 +164,7 @@ async def run_telegram_client(user_id):
     async def handler(event):
         """ Processes incoming trading signals """
         is_valid_signal, data = parse_telegram_message(event.message.text)
+
         print('Signal is valid:', is_valid_signal)
         if is_valid_signal:
             message = (f"📢 Signal received:\n"

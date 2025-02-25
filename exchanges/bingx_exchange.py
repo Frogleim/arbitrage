@@ -133,23 +133,25 @@ class BingX:
 
     def check_balance(self, coin=None):
         """Retrieve account balance. If `coin` is provided, return balance for that coin."""
-        endpoint = "/openApi/spot/v1/account"
+        endpoint = "/openApi/swap/v3/user/balance"
         paramsMap = {
             "timestamp": str(int(time.time() * 1000))
         }
 
         result = self._signed_request(method="GET", endpoint=endpoint, params=paramsMap)
-
-        if coin:
-            for asset in result.get('data', {}).get('balances', []):
-                if asset['asset'] == coin:
-                    return asset
-
         return result
+        # if coin:
+        #     for asset in result.get('data', {}).get('balances', []):
+        #         if asset['asset'] == coin:
+        #             return asset
+        #
+        # return result
 
 
 if __name__ == '__main__':
-    bingx_data = BingX()
+    api_key = 'BGss1vGogRTMsvh0kJWBwwHVAkMv4D23gU6cabidmO1TEavqXJSuxNIRtPolOPFIYXIGdTknmEzuUPkK0cMQ'
+    api_secret = 'pwys9X8wUAgWu1DUQiqjOVnR953GEUFY65HMFQ45kmTUx1rIOTNyuLxF9'
+    bingx_data = BingX(api_key=api_key, api_secret=api_secret)
 
     # ✅ Get deposit address
     coin = 'POLUSDT'
@@ -166,9 +168,8 @@ if __name__ == '__main__':
     # print(f"Buy Order: {buy_order}")
 
     # # ✅ Place a market sell order
-    sell_order = bingx_data.sell_crypto("POLUSDT", 3)
-    print(f"Sell Order: {sell_order}")
-
+    data = bingx_data.check_balance(coin=coin)
+    print(data)
     # # ✅ Withdraw
     # withdrawal = bingx_data.withdraw("POL", "0x1e269d187c5cc1acc1e25c8eb2938b4690f28038", 1, "POLYGON")
     # print(f"Withdrawal: {withdrawal}")
