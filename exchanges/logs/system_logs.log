@@ -180,3 +180,8 @@ MEXC spot order completed successfully!
 1.03 beta - 2025-02-24 23:12:51,862 - INFO - Coin FAI Bought in MEXC
 1.03 beta - 2025-02-24 23:12:53,358 - INFO - Buying crypto order
 1.03 beta - 2025-02-25 15:49:12,288 - INFO - leverage={'code': 100413, 'msg': 'Incorrect apiKey, please check your valid api key in https://bingx.com/en/account/api', 'timestamp': 1740484152212}
+1.03 beta - 2025-02-25 19:47:30,936 - INFO - leverage={'code': 100413, 'msg': 'Incorrect apiKey, please check your valid api key in https://bingx.com/en/account/api', 'timestamp': 1740498450909}
+1.03 beta - 2025-02-25 19:47:56,728 - INFO - leverage={'code': 100413, 'msg': 'Incorrect apiKey, please check your valid api key in https://bingx.com/en/account/api', 'timestamp': 1740498476700}
+1.03 beta - 2025-02-25 20:20:21,309 - INFO - leverage={'code': 100001, 'msg': 'Signature verification failed due to signature mismatch,please verify our authentication signature and try to  run our sample code  from the link https://bingx-api.github.io/docs/#/en-us/spot/account-api.html#Query%20Assets', 'timestamp': 1740500421206}
+1.03 beta - 2025-02-25 20:21:26,653 - INFO - leverage={'code': 100001, 'msg': 'Signature verification failed due to signature mismatch,please verify our authentication signature and try to  run our sample code  from the link https://bingx-api.github.io/docs/#/en-us/spot/account-api.html#Query%20Assets', 'timestamp': 1740500486545}
+1.03 beta - 2025-02-25 20:21:52,192 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'BTC-USDT', 'availableLongVol': '0.0069', 'availableShortVol': '0.0069', 'availableLongVal': '597.6', 'availableShortVal': '597.6', 'maxPositionLongVal': '100000000.0', 'maxPositionShortVal': '100000000.0'}}

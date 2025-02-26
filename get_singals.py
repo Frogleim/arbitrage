@@ -163,7 +163,7 @@ async def run_telegram_client(user_id):
     @client.on(events.NewMessage(chats='@ArbitrageSmartBot'))
     async def handler(event):
         """ Processes incoming trading signals """
-        is_valid_signal, data = parse_telegram_message(event.message.text)
+        is_valid_signal, data = clean_text(event.message.text)
 
         print('Signal is valid:', is_valid_signal)
         if is_valid_signal:
@@ -188,79 +188,144 @@ async def run_telegram_client(user_id):
     await client.run_until_disconnected()
 
 
-def parse_telegram_message(message):
-    token_exchange_match = re.search(r"(\w+):\s+([\w-]+)→([\w-]+)", message)
-    if not token_exchange_match:
-        return False, None
+def remove_price_ranges(data_list):
+    """ Removes elements that match the pattern of a number range (e.g., 0.03788-0.0379) """
+    return [item for item in data_list if not re.match(r'^\d+(\.\d+)?-\d+(\.\d+)?$', item)]
 
-    token, exchange_from, exchange_to = token_exchange_match.groups()
 
-    if exchange_from != "MEXC" or exchange_to != "BingX":
-        return False, None  # ✅ Ignore signals that are not from MEXC to BingX
+def contains_numbered_symbol(text):
+    if "№" in text:
+        return True
+    else:
+        return False
 
-    price_matches = re.findall(r"Цена: `([\d.]+)`", message)
-    if len(price_matches) < 2:
-        return False, None
-    price_from, price_to = map(float, price_matches)
 
-    volume_matches = re.findall(r"Объем:\s+\*\*(.*?)\$\*\*,\s+([\d.]+[MK]),\s+(\d+)\sордера", message)
-    if len(volume_matches) < 2:
-        return False, None
+def convert_abbreviation(value):
+    """ Converts abbreviated numbers like '2.05K' into normal numbers (e.g., 2050) """
+    match = re.match(r'([\d.]+)([KMB]?)', value)  # Match number and optional suffix
+    if not match:
+        return value  # Return unchanged if no match
 
-    volume_from, quantity_from, orders_from = volume_matches[0]
-    volume_to, quantity_to, orders_to = volume_matches[1]
+    num, suffix = match.groups()
+    num = float(num)  # Convert to float
 
-    volume_from, volume_to = float(volume_from), float(volume_to)
-    orders_from, orders_to = int(orders_from), int(orders_to)
+    # Multiply based on suffix
+    if suffix == "K":
+        num *= 1_000
+    elif suffix == "M":
+        num *= 1_000_000
+    elif suffix == "B":
+        num *= 1_000_000_000
 
-    def convert_quantity(quantity):
-        if "M" in quantity:
-            return float(quantity.replace("M", "")) * 1_000_000
-        elif "K" in quantity:
-            return float(quantity.replace("K", "")) * 1_000
-        return float(quantity)
+    return int(num) if num.is_integer() else num
 
-    quantity_from = convert_quantity(quantity_from)
-    quantity_to = convert_quantity(quantity_to)
+def clean_text(text):
+    is_contain = contains_numbered_symbol(text)
+    print('Text contains:', is_contain)
+    text = re.sub(r'[^\w\s.,:|$()/\[\]-]', '', text, flags=re.UNICODE)
 
-    fee_matches = re.findall(r"Комиссия: спот \*\*(.*?)\$\*\* / перевод \*\*(.*?)\$\*\*", message)
-    if not fee_matches:
-        return False, None
-    spot_fee, transfer_fee = map(float, fee_matches[0])
+    lines = text.strip().split("\n")
+    if len(lines) > 2:  # Ensure there are at least 3 lines to remove first and last
+        text = "\n".join(lines[1:-1])
+    # Remove all URLs
+    text = re.sub(r'https?://\S+', '', text)
+    text = re.sub(r'№\d+', '', text)
 
-    spread_match = re.search(r"💰 Чистый спред: \*\*(.*?)\$\*\* \(\*\*(.*?)%\*\*\)", message)
-    if not spread_match:
-        return False, None
-    spread_value, spread_percent = map(float, spread_match.groups())
+    # Remove square brackets but keep the text inside them
+    text = re.sub(r'\[([^\]]+)\]', r'\1', text)
 
-    network_match = re.search(r"Сеть:\s+(\w+)", message)
-    network = network_match.group(1) if network_match else None
+    # Remove words that contain Cyrillic characters (if needed)
+    text = re.sub(r'\b[А-Яа-яЁё]+\b', '', text)
+    text = re.sub(r'[|,|/]', '', text)
+    text = re.sub(r'[()]', '', text)
 
-    lifetime_match = re.search(r"🕑 Время жизни: (\d+:\d+)", message)
-    lifetime = lifetime_match.group(1) if lifetime_match else None
+    # Remove extra spaces left from removed content
+    text = re.sub(r'\s+', ' ', text).strip()
 
-    data = {
-        "token": token,
-        "exchange_from": exchange_from,
-        "exchange_to": exchange_to,
-        "price_from": price_from,
-        "price_to": price_to,
-        "volume_from": volume_from,
-        "volume_to": volume_to,
-        "orders_count_from": orders_from,
-        "orders_count_to": orders_to,
+    # Remove specific unwanted characters like ':' and '$'
+    text = re.sub(r'[:$]', '', text)
+    l_data = text.split()
+    l_data = remove_price_ranges(l_data)
+
+    print(l_data)
+    if is_contain:
+        quantity_from = convert_abbreviation(l_data[5])
+        quantity_to = convert_abbreviation(l_data[10])
+        d = {
+        "exchange_from": l_data[2],
+        "price_from": l_data[3],
         "quantity_from": quantity_from,
+        'orders_count_from': l_data[6],
+        "exchange_to": l_data[7],
+        "price_to": l_data[8],
         "quantity_to": quantity_to,
-        "spot_fee": spot_fee,
-        "transfer_fee": transfer_fee,
-        "network": network,
-        "spread_value": spread_value,
-        "spread_percent": spread_percent,
-        "lifetime": lifetime
-    }
+        "orders_count_to": l_data[11],
+        "token": l_data[0],
 
-    return True, data
+        }
+
+
+
+        print(d)
+        if d['exchange_from'] != "MEXC" or d['exchange_to'] != "BingX":
+            print("❌ Error: Exchange mismatch (Expected MEXC -> BingX)")
+            return False, None
+        return True, d
+
+    elif not is_contain:
+        quantity_from = convert_abbreviation(l_data[4])
+        quantity_to = convert_abbreviation(l_data[9])
+        d = {
+            "exchange_from": l_data[1],
+            "price_from": l_data[2],
+            "quantity_from": quantity_from,
+            'orders_count_from': l_data[5],
+            "exchange_to": l_data[6],
+            "price_to": l_data[7],
+            "quantity_to": quantity_to,
+            "orders_count_to": l_data[11],
+            "token": l_data[0],
+
+        }
+
+        print(d)
+
+        if d['exchange_from'] != "MEXC" or d['exchange_to'] != "BingX":
+            print("❌ Error: Exchange mismatch (Expected MEXC -> BingX)")
+            return False, None
+        return True, d
+    else:
+        return False, None
+
+
+
+
+
 
 if __name__ == "__main__":
     print("✅ Telegram bot is running...")
     bot.run_until_disconnected()
+#     message = """
+#   ✅GPU: MEXC→BingX 297.6 +2.1$ (0.67%)
+#
+# GPU/USDT: №610
+#
+# 📗| MEXC | вывод |
+# Цена: 0.4225
+# Объем: 297.6 $, 704.57, 1 ордер
+#
+# 📕| BingX | ввод |
+# Цена: 0.428002 [0.43-0.428]
+# Объем: 300.3 $, 701.57, 2 ордера
+#
+# Комиссия: спот 0.6$ / перевод 1.27$ (3 GPU)
+# Сеть: ERC20
+# 🟢 3-13 минут (5 подт. ~ 1 мин)
+# 🕑 Время жизни: 00:01
+# 💰 Чистый спред: 2.1$ (0.67%)
+# 👍Контракты совпадают
+#
+# ✅Фьючерсы: MEXC
+#     """
+#     is_valid, data = parse_telegram_message(message)
+#     print(data)

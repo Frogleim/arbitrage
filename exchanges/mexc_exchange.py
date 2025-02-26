@@ -90,7 +90,7 @@ class Mexc:
             "side": "BUY",
             "type": "MARKET",
             # "price": price,
-            "quoteOrderQty": str(10)
+            "quoteOrderQty": str(100000)
         }
         response = self._send_request("POST", endpoint, params)
         return response
@@ -144,14 +144,14 @@ if __name__ == '__main__':
         return Decimal(amount).quantize(Decimal(f'1.{"0" * decimals}'), rounding=ROUND_DOWN)
 
 
-    MEX_API_KEY = 'mx0vglFXKQlvzxMy6T'
-    MEX_SECRET_KEY = '4004ef44894b45cdbfba900079a4c5f2'
+    MEX_API_KEY = 'mx0vglJc4tBGIAu1If'
+    MEX_SECRET_KEY = 'c96fe073664a4f91a19c2a25a3fd812b'
 
     mexc_data = Mexc(MEX_API_KEY, MEX_SECRET_KEY)
 
     # ✅ Get deposit address
-    deposit_address = mexc_data.get_asset_address('POL', 'Polygon(MATIC)')
-    print(f"Deposit Address: {deposit_address}")
+    # deposit_address = mexc_data.get_asset_address('DEAI', 'SONIC')
+    # print(f"Deposit Address: {deposit_address}")
 
     # # ✅ Get MATIC/USDT market price
     # price_data = mexc_data.check_signal("MATICUSDT", price=1.0)
@@ -167,11 +167,11 @@ if __name__ == '__main__':
     # print(withdraw_response)
     #
     # # ✅ Buy crypto (Market order)
-    # buy_response = mexc_data.buy_crypto("B3", amount=10)
+    buy_response = mexc_data.buy_crypto("DEAI")
     # print(buy_response)
     # #
     # # ✅ Check account balance
-    balance = mexc_data.check_balance("MATIC")
+    balance = mexc_data.check_balance("DEAI")
     print(f"Balance: {balance}")
     #
     # # ✅ Sell crypto (Market order)
