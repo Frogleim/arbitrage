@@ -260,7 +260,7 @@ def clean_text(text):
         "price_to": l_data[8],
         "quantity_to": quantity_to,
         "orders_count_to": l_data[11],
-        "token": l_data[0],
+        "token": l_data[0].replace('USDT', ''),
 
         }
 
@@ -284,7 +284,7 @@ def clean_text(text):
             "price_to": l_data[7],
             "quantity_to": quantity_to,
             "orders_count_to": l_data[11],
-            "token": l_data[0],
+            "token": l_data[0].replace('USDT', ''),
 
         }
 

@@ -2,8 +2,8 @@ import time
 import requests
 import hmac
 from hashlib import sha256
+# import loggs
 from . import loggs
-
 APIURL = "https://open-api.bingx.com"
 
 
@@ -70,12 +70,17 @@ def open_trade(symbol, exit_price, api_key, api_secret, quantity=None):
                 "side": "SELL",
                 "positionSide": "SHORT",
                 "type": "MARKET",
-                "quantity": 100000,
+                "quantity": 10,
                 "takeProfit": take_profit,
             }
 
             paramsStr = parseParam(paramsMap)
-            return True, 'Ok'
+            res = send_request(method, path, paramsStr, {}, api_key, api_secret)
+            loggs.system_log.info(res)
+            if 'code' in res:
+                return True, 'Ok'
+            else:
+                return False, 'Error'
         else:
             return False, None
 
@@ -108,24 +113,9 @@ def parseParam(paramsMap):
 
 
 if __name__ == '__main__':
-    try:
-        # Use your API keys
-        BINGX_API_KEY = "8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA"
-        BINGX_SECRET_KEY = "Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ"
 
-        entry_price = get_market_price(symbol='BTC')
-        print(f"Current Market Price: {entry_price}")
 
-        response = open_trade(
-            symbol='BTC',
-            exit_price=entry_price,  # Example TP 2% above
-            api_key=BINGX_API_KEY,
-            api_secret=BINGX_SECRET_KEY
-        )
-
-        print("Trade Response:", response)
-    except Exception as e:
-        print("Error:", e)
+    close_position(symbol='AIXBT', api_key='8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA', api_secret='Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ')
 
 
         # B4Ugtf2PRyE9lOjr8QEWS0OmjLR4D1LueKhhkupGBOTU9dAjMVShOJNKmAtnjkc0Yh6NhSyZjI4rIIFfmsXLQ

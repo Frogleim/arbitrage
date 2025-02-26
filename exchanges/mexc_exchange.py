@@ -6,6 +6,7 @@ import os
 from dotenv import load_dotenv
 from urllib.parse import urlencode
 from .mexc_withdraw import withdraw
+from . import loggs
 
 load_dotenv()
 
@@ -90,9 +91,10 @@ class Mexc:
             "side": "BUY",
             "type": "MARKET",
             # "price": price,
-            "quoteOrderQty": str(100000)
+            "quoteOrderQty": str(10)
         }
         response = self._send_request("POST", endpoint, params)
+        loggs.system_log.info(response)
         return response
 
     # ✅ Get Account Balance

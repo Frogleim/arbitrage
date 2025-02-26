@@ -185,3 +185,62 @@ MEXC spot order completed successfully!
 1.03 beta - 2025-02-25 20:20:21,309 - INFO - leverage={'code': 100001, 'msg': 'Signature verification failed due to signature mismatch,please verify our authentication signature and try to  run our sample code  from the link https://bingx-api.github.io/docs/#/en-us/spot/account-api.html#Query%20Assets', 'timestamp': 1740500421206}
 1.03 beta - 2025-02-25 20:21:26,653 - INFO - leverage={'code': 100001, 'msg': 'Signature verification failed due to signature mismatch,please verify our authentication signature and try to  run our sample code  from the link https://bingx-api.github.io/docs/#/en-us/spot/account-api.html#Query%20Assets', 'timestamp': 1740500486545}
 1.03 beta - 2025-02-25 20:21:52,192 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'BTC-USDT', 'availableLongVol': '0.0069', 'availableShortVol': '0.0069', 'availableLongVal': '597.6', 'availableShortVal': '597.6', 'maxPositionLongVal': '100000000.0', 'maxPositionShortVal': '100000000.0'}}
+1.03 beta - 2025-02-26 10:09:38,052 - INFO - Buying quantity: 37.95666666666667
+1.03 beta - 2025-02-26 10:09:38,054 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 10:38:40,256 - INFO - Buying quantity: 133.75
+1.03 beta - 2025-02-26 10:38:40,259 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 10:38:41,078 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-26 10:38:41,078 - INFO - Coin VIRTUAL Bought in MEXC
+1.03 beta - 2025-02-26 10:38:42,869 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'VIRTUAL-USDT', 'availableLongVol': '1079.598', 'availableShortVol': '542.484', 'availableLongVal': '1189.1888', 'availableShortVal': '597.5526', 'maxPositionLongVal': '60000.0000', 'maxPositionShortVal': '300000.0000'}}
+1.03 beta - 2025-02-26 10:38:42,870 - INFO - Position opened in BingX: 1.10355
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-26 11:05:13,676 - INFO - Buying quantity: 3961.1111111111113
+1.03 beta - 2025-02-26 11:05:13,679 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 11:30:46,003 - INFO - Buying quantity: 280.6
+1.03 beta - 2025-02-26 11:30:46,004 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 11:30:46,840 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-26 11:30:46,840 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-26 11:30:46,840 - INFO - Coin VIRTUAL Bought in MEXC
+1.03 beta - 2025-02-26 11:30:47,950 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'VIRTUAL-USDT', 'availableLongVol': '1081.804', 'availableShortVol': '543.593', 'availableLongVal': '1189.1888', 'availableShortVal': '597.5526', 'maxPositionLongVal': '60000.0000', 'maxPositionShortVal': '300000.0000'}}
+1.03 beta - 2025-02-26 11:37:58,939 - INFO - Buying quantity: 280.0
+1.03 beta - 2025-02-26 11:37:58,941 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 11:37:59,752 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-26 11:37:59,752 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-26 11:37:59,752 - INFO - Coin VIRTUAL Bought in MEXC
+1.03 beta - 2025-02-26 11:47:01,353 - INFO - Buying quantity: 123.91571428571429
+1.03 beta - 2025-02-26 11:47:01,356 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 11:47:02,211 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-26 11:47:02,211 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-26 11:47:02,211 - INFO - Coin VIRTUAL Bought in MEXC
+1.03 beta - 2025-02-26 12:08:18,486 - INFO - Buying quantity: 5114.444444444444
+1.03 beta - 2025-02-26 12:08:18,487 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 12:08:19,315 - INFO - {'symbol': 'SUNDOGUSDT', 'orderId': 'C02__523344547938430976056', 'orderListId': -1, 'price': '0.05671', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740557299366}
+1.03 beta - 2025-02-26 12:08:19,315 - INFO - {'symbol': 'SUNDOGUSDT', 'orderId': 'C02__523344547938430976056', 'orderListId': -1, 'price': '0.05671', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740557299366}
+1.03 beta - 2025-02-26 12:08:19,315 - INFO - Coin SUNDOG Bought in MEXC
+1.03 beta - 2025-02-26 14:01:34,695 - INFO - Buying quantity: 58200.0
+1.03 beta - 2025-02-26 14:01:34,697 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 14:01:35,592 - INFO - {'symbol': 'AIXBTUSDT', 'orderId': 'C02__523373052881391616056', 'orderListId': -1, 'price': '0.2086', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740564095474}
+1.03 beta - 2025-02-26 14:01:35,593 - INFO - {'symbol': 'AIXBTUSDT', 'orderId': 'C02__523373052881391616056', 'orderListId': -1, 'price': '0.2086', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740564095474}
+1.03 beta - 2025-02-26 14:01:35,593 - INFO - Coin AIXBT Bought in MEXC
+1.03 beta - 2025-02-26 14:01:36,696 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'AIXBT-USDT', 'availableLongVol': '5986.56', 'availableShortVol': '3008.17', 'availableLongVal': '1189.32784', 'availableShortVal': '597.62245', 'maxPositionLongVal': '60000.00000', 'maxPositionShortVal': '300000.00000'}}
+1.03 beta - 2025-02-26 14:01:37,158 - INFO - {'code': 0, 'msg': '', 'data': {'order': {'orderId': 1894689264685502464, 'orderID': '1894689264685502464', 'symbol': 'AIXBT-USDT', 'positionSide': 'SHORT', 'side': 'SELL', 'type': 'MARKET', 'price': 0, 'quantity': 10, 'stopPrice': 0, 'workingType': 'MARK_PRICE', 'clientOrderID': '', 'clientOrderId': '', 'timeInForce': 'GTC', 'priceRate': 0, 'stopLoss': '', 'takeProfit': '{"type": "TAKE_PROFIT_MARKET", "stopPrice": 0.17883, "price": 0.19878, "workingType": "MARK_PRICE"}', 'reduceOnly': False, 'activationPrice': 0, 'closePosition': '', 'stopGuaranteed': '', 'status': 'FILLED', 'avgPrice': '0.19867'}}}
+1.03 beta - 2025-02-26 14:01:37,158 - INFO - Position opened in BingX: 0.1987
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-26 14:20:34,852 - INFO - Buying quantity: 1006.2500000000001
+1.03 beta - 2025-02-26 14:20:34,853 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 14:20:35,736 - INFO - {'symbol': 'COWUSDT', 'orderId': 'C02__523377834647969792056', 'orderListId': -1, 'price': '0.4135', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740565235536}
+1.03 beta - 2025-02-26 14:20:35,737 - INFO - {'symbol': 'COWUSDT', 'orderId': 'C02__523377834647969792056', 'orderListId': -1, 'price': '0.4135', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740565235536}
+1.03 beta - 2025-02-26 14:20:35,737 - INFO - Coin COW Bought in MEXC
+1.03 beta - 2025-02-26 14:20:36,768 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'COW-USDT', 'availableLongVol': '2284.79', 'availableShortVol': '1526.98', 'availableLongVal': '893.9250', 'availableShortVal': '597.4324', 'maxPositionLongVal': '40000.0000', 'maxPositionShortVal': '200000.0000'}}
+1.03 beta - 2025-02-26 14:20:37,327 - INFO - {'code': 0, 'msg': '', 'data': {'order': {'orderId': 1894694046842179584, 'orderID': '1894694046842179584', 'symbol': 'COW-USDT', 'positionSide': 'SHORT', 'side': 'SELL', 'type': 'MARKET', 'price': 0, 'quantity': 10, 'stopPrice': 0, 'workingType': 'MARK_PRICE', 'clientOrderID': '', 'clientOrderId': '', 'timeInForce': 'GTC', 'priceRate': 0, 'stopLoss': '', 'takeProfit': '{"type": "TAKE_PROFIT_MARKET", "stopPrice": 0.35451, "price": 0.3914, "workingType": "MARK_PRICE"}', 'reduceOnly': False, 'activationPrice': 0, 'closePosition': '', 'stopGuaranteed': '', 'status': 'FILLED', 'avgPrice': '0.3906'}}}
+1.03 beta - 2025-02-26 14:20:37,327 - INFO - Position opened in BingX: 0.3939
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-26 14:27:01,092 - INFO - Buying quantity: 76.12333333333333
+1.03 beta - 2025-02-26 14:27:01,093 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 14:27:01,916 - INFO - {'symbol': 'QNTUSDT', 'orderId': 'C02__523379454857252867056', 'orderListId': -1, 'price': '116.97', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740565621824}
+1.03 beta - 2025-02-26 14:27:01,916 - INFO - {'symbol': 'QNTUSDT', 'orderId': 'C02__523379454857252867056', 'orderListId': -1, 'price': '116.97', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740565621824}
+1.03 beta - 2025-02-26 14:27:01,916 - INFO - Coin QNT Bought in MEXC
+1.03 beta - 2025-02-26 14:27:03,118 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'QNT-USDT', 'availableLongVol': '10.62', 'availableShortVol': '10.62', 'availableLongVal': '1181.18', 'availableShortVal': '1181.18', 'maxPositionLongVal': '5000.00', 'maxPositionShortVal': '5000.00'}}
+1.03 beta - 2025-02-26 14:27:03,715 - INFO - {'code': 0, 'msg': 'Insufficient margin', 'data': {}}
+1.03 beta - 2025-02-26 14:27:03,715 - INFO - Position opened in BingX: 111.52
+MEXC spot order completed successfully!

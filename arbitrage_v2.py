@@ -24,6 +24,13 @@ def get_signature(api_secret, payload):
     print(f"🔍 Signature: {signature}")  # ✅ Debugging
     return signature
 
+def check_coins_exist_bingx(token):
+    is_exist, _ = bingx_futures.get_market_price(token)
+    if is_exist:
+        return True
+    else:
+        return False
+
 
 def get_signal(signal_json: Optional[dict] = None, keys: list = None) -> Tuple[bool, str]:
     """Check if coming signal is valid.
@@ -55,6 +62,9 @@ def get_signal(signal_json: Optional[dict] = None, keys: list = None) -> Tuple[b
 
 
 def buy_crypto(signal_data, api_keys: list):
+    coin_exist = check_coins_exist_bingx(signal_data['token'])
+    if not coin_exist:
+        return False, 'Coin doesnt exist in Bingx Futures'
     mexc = mexc_exchange.Mexc(api_keys[0], api_keys[1])
     final_quantity = float(signal_data['quantity_from']) / float(signal_data['orders_count_from'])
     spot_buying = final_quantity * float(signal_data['price_from'])
@@ -68,6 +78,9 @@ def buy_crypto(signal_data, api_keys: list):
             amount=round(spot_buying, 1))
         loggs.system_log.info(order_response)
         loggs.system_log.info(f"Coin {signal_data['token']} Bought in MEXC")
+        if 'code' in order_response:
+            return False, order_response['msg']
+
     except Exception as e:
         loggs.error_logs_logger.info(e)
         return False, f"Error while trying to buy crypto in MEXC spot: {e}"
