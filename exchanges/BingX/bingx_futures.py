@@ -4,6 +4,8 @@ import hmac
 from hashlib import sha256
 # import loggs
 from . import loggs
+
+
 APIURL = "https://open-api.bingx.com"
 
 
@@ -71,7 +73,6 @@ def open_trade(symbol, exit_price, api_key, api_secret, quantity=None):
                 "positionSide": "SHORT",
                 "type": "MARKET",
                 "quantity": 10,
-                "takeProfit": take_profit,
             }
 
             paramsStr = parseParam(paramsMap)
@@ -115,7 +116,7 @@ def parseParam(paramsMap):
 if __name__ == '__main__':
 
 
-    close_position(symbol='AIXBT', api_key='8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA', api_secret='Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ')
+    close_position(symbol='KAITO', api_key='8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA', api_secret='Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ')
 
 
         # B4Ugtf2PRyE9lOjr8QEWS0OmjLR4D1LueKhhkupGBOTU9dAjMVShOJNKmAtnjkc0Yh6NhSyZjI4rIIFfmsXLQ

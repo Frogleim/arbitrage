@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 from urllib.parse import urlencode
 from .mexc_withdraw import withdraw
-from . import loggs
+from exchanges import loggs
 
 load_dotenv()
 
@@ -91,13 +91,13 @@ class Mexc:
             "side": "BUY",
             "type": "MARKET",
             # "price": price,
-            "quoteOrderQty": str(10)
+            "quantity": str(10)
         }
         response = self._send_request("POST", endpoint, params)
         loggs.system_log.info(response)
         return response
 
-    # ✅ Get Account Balance
+
     def check_balance(self, coin):
         """Check account balance for a specific coin."""
         endpoint = "/api/v3/account"
@@ -169,11 +169,11 @@ if __name__ == '__main__':
     # print(withdraw_response)
     #
     # # ✅ Buy crypto (Market order)
-    buy_response = mexc_data.buy_crypto("DEAI")
+    # buy_response = mexc_data.buy_crypto("DEAI")
     # print(buy_response)
     # #
     # # ✅ Check account balance
-    balance = mexc_data.check_balance("DEAI")
+    balance = mexc_data.check_balance("FARTCOIN")
     print(f"Balance: {balance}")
     #
     # # ✅ Sell crypto (Market order)

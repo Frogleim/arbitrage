@@ -1,7 +1,8 @@
 from typing import Tuple, Optional
 import hmac
 from hashlib import sha256
-from exchanges import mexc_exchange, bingx_exchange, bingx_futures
+from exchanges.BingX import bingx_futures
+from exchanges.MEXC import mexc_exchange
 from exchanges import loggs
 import os
 from dotenv import load_dotenv
@@ -67,6 +68,10 @@ def buy_crypto(signal_data, api_keys: list):
         return False, 'Coin doesnt exist in Bingx Futures'
     mexc = mexc_exchange.Mexc(api_keys[0], api_keys[1])
     final_quantity = float(signal_data['quantity_from']) / float(signal_data['orders_count_from'])
+    mexc_last_price = mexc.get_last_price(signal_data['token'])
+    _, bingx_last_price = bingx_futures.get_market_price(signal_data['token'])
+    if float(bingx_last_price) < float(mexc_last_price):
+        return False, 'Signals is not profitable. BingX price is lower that MEXC'
     spot_buying = final_quantity * float(signal_data['price_from'])
     loggs.system_log.info(f"Buying quantity: {final_quantity}")
     # for _ in range(signal_data['orders_count_from']):

@@ -5,7 +5,7 @@ from urllib.parse import urlencode
 import hmac
 from hashlib import sha256
 import time
-from .get_api import sell
+from exchanges.get_api import sell
 import urllib.parse
 from .bingx_buy import buy_crypto
 from .bingx_withraw import withdraw

@@ -244,3 +244,55 @@ MEXC spot order completed successfully!
 1.03 beta - 2025-02-26 14:27:03,715 - INFO - {'code': 0, 'msg': 'Insufficient margin', 'data': {}}
 1.03 beta - 2025-02-26 14:27:03,715 - INFO - Position opened in BingX: 111.52
 MEXC spot order completed successfully!
+1.03 beta - 2025-02-26 16:23:26,067 - INFO - Buying quantity: 2458.181818181818
+1.03 beta - 2025-02-26 16:23:26,069 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 16:23:26,935 - INFO - {'symbol': 'FARTCOINUSDT', 'orderId': 'C02__523408752569864192056', 'orderListId': -1, 'price': '0.30088', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740572606943}
+1.03 beta - 2025-02-26 16:23:26,935 - INFO - {'symbol': 'FARTCOINUSDT', 'orderId': 'C02__523408752569864192056', 'orderListId': -1, 'price': '0.30088', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740572606943}
+1.03 beta - 2025-02-26 16:23:26,935 - INFO - Coin FARTCOIN Bought in MEXC
+1.03 beta - 2025-02-26 16:23:29,070 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'FARTCOIN-USDT', 'availableLongVol': '4133.080', 'availableShortVol': '2076.821', 'availableLongVal': '1185.5638', 'availableShortVal': '595.7311', 'maxPositionLongVal': '500000.0000', 'maxPositionShortVal': '2000000.0000'}}
+1.03 beta - 2025-02-26 16:23:29,548 - INFO - {'code': 0, 'msg': '', 'data': {'order': {'orderId': 1894724968815742976, 'orderID': '1894724968815742976', 'symbol': 'FARTCOIN-USDT', 'positionSide': 'SHORT', 'side': 'SELL', 'type': 'MARKET', 'price': 0, 'quantity': 10, 'stopPrice': 0, 'workingType': 'MARK_PRICE', 'clientOrderID': '', 'clientOrderId': '', 'timeInForce': 'GTC', 'priceRate': 0, 'stopLoss': '', 'takeProfit': '{"type": "TAKE_PROFIT_MARKET", "stopPrice": 0.258048, "price": 0.2868, "workingType": "MARK_PRICE"}', 'reduceOnly': False, 'activationPrice': 0, 'closePosition': '', 'stopGuaranteed': '', 'status': 'FILLED', 'avgPrice': '0.2868'}}}
+1.03 beta - 2025-02-26 16:23:29,548 - INFO - Position opened in BingX: 0.28672
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-26 18:31:51,790 - INFO - Buying quantity: 78600.0
+1.03 beta - 2025-02-26 18:31:51,792 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 18:31:52,625 - INFO - {'symbol': 'PYTHUSDT', 'orderId': 'C02__523441072366542848056', 'orderListId': -1, 'price': '0.2165', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740580312583}
+1.03 beta - 2025-02-26 18:31:52,625 - INFO - {'symbol': 'PYTHUSDT', 'orderId': 'C02__523441072366542848056', 'orderListId': -1, 'price': '0.2165', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740580312583}
+1.03 beta - 2025-02-26 18:31:52,625 - INFO - Coin PYTH Bought in MEXC
+1.03 beta - 2025-02-26 18:31:53,717 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'PYTH-USDT', 'availableLongVol': '5754', 'availableShortVol': '2892', 'availableLongVal': '1186.2995', 'availableShortVal': '596.1007', 'maxPositionLongVal': '200000.0000', 'maxPositionShortVal': '800000.0000'}}
+1.03 beta - 2025-02-26 18:31:54,246 - INFO - {'code': 0, 'msg': '', 'data': {'order': {'orderId': 1894757284619440128, 'orderID': '1894757284619440128', 'symbol': 'PYTH-USDT', 'positionSide': 'SHORT', 'side': 'SELL', 'type': 'MARKET', 'price': 0, 'quantity': 10, 'stopPrice': 0, 'workingType': 'MARK_PRICE', 'clientOrderID': '', 'clientOrderId': '', 'timeInForce': 'GTC', 'priceRate': 0, 'stopLoss': '', 'takeProfit': '{"type": "TAKE_PROFIT_MARKET", "stopPrice": 0.18585, "price": 0.2062, "workingType": "MARK_PRICE"}', 'reduceOnly': False, 'activationPrice': 0, 'closePosition': '', 'stopGuaranteed': '', 'status': 'FILLED', 'avgPrice': '0.2060'}}}
+1.03 beta - 2025-02-26 18:31:54,247 - INFO - Position opened in BingX: 0.2065
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-26 20:06:16,480 - INFO - Buying quantity: 1160.0
+1.03 beta - 2025-02-26 20:06:16,481 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 20:06:17,325 - INFO - {'symbol': 'KAITOUSDT', 'orderId': 'C02__523464832230486016056', 'orderListId': -1, 'price': '2.487', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740585977376}
+1.03 beta - 2025-02-26 20:06:17,326 - INFO - {'symbol': 'KAITOUSDT', 'orderId': 'C02__523464832230486016056', 'orderListId': -1, 'price': '2.487', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1740585977376}
+1.03 beta - 2025-02-26 20:06:17,326 - INFO - Coin KAITO Bought in MEXC
+1.03 beta - 2025-02-26 20:06:19,370 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'KAITO-USDT', 'availableLongVol': '500.449', 'availableShortVol': '251.470', 'availableLongVal': '1185.9615', 'availableShortVal': '595.9309', 'maxPositionLongVal': '60000.0000', 'maxPositionShortVal': '300000.0000'}}
+1.03 beta - 2025-02-26 20:06:19,845 - INFO - {'code': 0, 'msg': '', 'data': {'order': {'orderId': 1894781048145006592, 'orderID': '1894781048145006592', 'symbol': 'KAITO-USDT', 'positionSide': 'SHORT', 'side': 'SELL', 'type': 'MARKET', 'price': 0, 'quantity': 10, 'stopPrice': 0, 'workingType': 'MARK_PRICE', 'clientOrderID': '', 'clientOrderId': '', 'timeInForce': 'GTC', 'priceRate': 0, 'stopLoss': '', 'takeProfit': '{"type": "TAKE_PROFIT_MARKET", "stopPrice": 2.13444, "price": 2.3674, "workingType": "MARK_PRICE"}', 'reduceOnly': False, 'activationPrice': 0, 'closePosition': '', 'stopGuaranteed': '', 'status': 'FILLED', 'avgPrice': '2.3646'}}}
+1.03 beta - 2025-02-26 20:06:19,845 - INFO - Position opened in BingX: 2.3716
+MEXC spot order completed successfully!
+1.03 beta - 2025-02-26 23:58:33,875 - INFO - Buying quantity: 4603333.333333333
+1.03 beta - 2025-02-26 23:58:33,876 - INFO - Buying crypto order
+1.03 beta - 2025-02-26 23:58:34,709 - INFO - {'msg': 'The minimum transaction volume cannot be less than：1USDT', 'code': 30002, '_extend': {'quantity': '1USDT'}}
+1.03 beta - 2025-02-26 23:58:34,710 - INFO - {'msg': 'The minimum transaction volume cannot be less than：1USDT', 'code': 30002, '_extend': {'quantity': '1USDT'}}
+1.03 beta - 2025-02-26 23:58:34,710 - INFO - Coin HMSTR Bought in MEXC
+1.03 beta - 2025-02-27 09:39:28,464 - INFO - Buying quantity: 1341818.1818181819
+1.03 beta - 2025-02-27 09:39:28,464 - INFO - Buying quantity: 1341818.1818181819
+1.03 beta - 2025-02-27 09:39:28,467 - INFO - Buying crypto order
+1.03 beta - 2025-02-27 09:39:28,467 - INFO - Buying crypto order
+1.03 beta - 2025-02-27 09:39:29,292 - INFO - {'msg': 'The minimum transaction volume cannot be less than：1USDT', 'code': 30002, '_extend': {'quantity': '1USDT'}}
+1.03 beta - 2025-02-27 09:39:29,292 - INFO - {'msg': 'The minimum transaction volume cannot be less than：1USDT', 'code': 30002, '_extend': {'quantity': '1USDT'}}
+1.03 beta - 2025-02-27 09:39:29,292 - INFO - {'msg': 'The minimum transaction volume cannot be less than：1USDT', 'code': 30002, '_extend': {'quantity': '1USDT'}}
+1.03 beta - 2025-02-27 09:39:29,292 - INFO - {'msg': 'The minimum transaction volume cannot be less than：1USDT', 'code': 30002, '_extend': {'quantity': '1USDT'}}
+1.03 beta - 2025-02-27 09:39:29,293 - INFO - Coin NEIROCTO Bought in MEXC
+1.03 beta - 2025-02-27 09:39:29,293 - INFO - Coin NEIROCTO Bought in MEXC
+1.03 beta - 2025-02-27 10:38:08,560 - INFO - Buying quantity: 3846.6666666666665
+1.03 beta - 2025-02-27 10:38:08,560 - INFO - Buying quantity: 3846.6666666666665
+1.03 beta - 2025-02-27 10:38:08,561 - INFO - Buying crypto order
+1.03 beta - 2025-02-27 10:38:08,561 - INFO - Buying crypto order
+1.03 beta - 2025-02-27 10:38:09,332 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-27 10:38:09,332 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-27 10:38:09,332 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-27 10:38:09,332 - INFO - {'code': 10007, 'msg': 'symbol not support api'}
+1.03 beta - 2025-02-27 10:38:09,332 - INFO - Coin SHELL Bought in MEXC
+1.03 beta - 2025-02-27 10:38:09,332 - INFO - Coin SHELL Bought in MEXC
