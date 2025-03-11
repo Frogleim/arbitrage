@@ -91,7 +91,7 @@ class Mexc:
             "side": "BUY",
             "type": "MARKET",
             # "price": price,
-            "quantity": str(10)
+            "quoteOrderQty": str(10)
         }
         response = self._send_request("POST", endpoint, params)
         loggs.system_log.info(response)
@@ -146,8 +146,8 @@ if __name__ == '__main__':
         return Decimal(amount).quantize(Decimal(f'1.{"0" * decimals}'), rounding=ROUND_DOWN)
 
 
-    MEX_API_KEY = 'mx0vglJc4tBGIAu1If'
-    MEX_SECRET_KEY = 'c96fe073664a4f91a19c2a25a3fd812b'
+    MEX_API_KEY = 'mx0vglFXKQlvzxMy6T'
+    MEX_SECRET_KEY = '4004ef44894b45cdbfba900079a4c5f2'
 
     mexc_data = Mexc(MEX_API_KEY, MEX_SECRET_KEY)
 
@@ -169,12 +169,12 @@ if __name__ == '__main__':
     # print(withdraw_response)
     #
     # # ✅ Buy crypto (Market order)
-    # buy_response = mexc_data.buy_crypto("DEAI")
-    # print(buy_response)
+    buy_response = mexc_data.buy_crypto("JUP")
+    print(buy_response)
     # #
     # # ✅ Check account balance
-    balance = mexc_data.check_balance("FARTCOIN")
-    print(f"Balance: {balance}")
+    # balance = mexc_data.check_balance("FARTCOIN")
+    # print(f"Balance: {balance}")
     #
     # # ✅ Sell crypto (Market order)
     # sell_response = mexc_data.sell_crypto("MATICUSDT", amount=5)

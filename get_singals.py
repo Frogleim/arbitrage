@@ -125,6 +125,16 @@ async def handle_user_input(event):
 
     elif step == "bingx_api_secret":
         user_sessions[user_id]["bingx_api_secret"] = text
+        user_sessions[user_id]["step"] = "binance_api_key"
+        await send_message_event(event, "✅ Now enter your **Binance API Key**:")
+
+    elif step == "binance_api_key":
+        user_sessions[user_id]["binance_api_key"] = text
+        user_sessions[user_id]["step"] = "binance_api_secret"
+        await send_message_event(event, "✅ Now enter your **Binance API Secret Key**:")
+
+    elif step == "binance_api_secret":
+        user_sessions[user_id]["binance_api_secret"] = text
         user_sessions[user_id]["step"] = "listening"
 
         # ✅ Save credentials to file
@@ -164,6 +174,8 @@ async def run_telegram_client(user_id):
     async def handler(event):
         """ Processes incoming trading signals """
         is_valid_signal, data = clean_text(event.message.text)
+        # is_valid_signal = True
+        # data = {'exchange_from': 'MEXC', 'price_from': '0.204303', 'quantity_from': 235800, 'orders_count_from': '3', 'exchange_to': 'BingX', 'price_to': '0.205398', 'quantity_to': 235800, 'orders_count_to': '5', 'token': 'PYTH'}
 
         print('Signal is valid:', is_valid_signal)
         if is_valid_signal:
@@ -175,8 +187,9 @@ async def run_telegram_client(user_id):
 
             if data['exchange_from'] == "MEXC" and data['exchange_to'] == "BingX":
                 await send_message_user(user_id, "Received signal! Buying crypto")
-                is_finished, msg = buy_crypto(data, keys)
-
+                # is_finished, msg = buy_crypto(data, keys)
+                msg = 'ok'
+                is_finished = True
                 if is_finished:
                     await send_message_user(user_id, f"✅ All orders completed successfully!\n{msg}")
                 else:
@@ -289,8 +302,9 @@ def clean_text(text):
         }
 
         print(d)
-
-        if d['exchange_from'] != "MEXC" or d['exchange_to'] != "BingX":
+        with open("file.json", "r") as f:
+            data = json.load(f)
+        if d['exchange_from'] not in data['exchanges_from'] or d['exchange_to'] not in data['exchanges_to']:
             print("❌ Error: Exchange mismatch (Expected MEXC -> BingX)")
             return False, None
         return True, d
@@ -305,27 +319,5 @@ def clean_text(text):
 if __name__ == "__main__":
     print("✅ Telegram bot is running...")
     bot.run_until_disconnected()
-#     message = """
-#   ✅GPU: MEXC→BingX 297.6 +2.1$ (0.67%)
 #
-# GPU/USDT: №610
-#
-# 📗| MEXC | вывод |
-# Цена: 0.4225
-# Объем: 297.6 $, 704.57, 1 ордер
-#
-# 📕| BingX | ввод |
-# Цена: 0.428002 [0.43-0.428]
-# Объем: 300.3 $, 701.57, 2 ордера
-#
-# Комиссия: спот 0.6$ / перевод 1.27$ (3 GPU)
-# Сеть: ERC20
-# 🟢 3-13 минут (5 подт. ~ 1 мин)
-# 🕑 Время жизни: 00:01
-# 💰 Чистый спред: 2.1$ (0.67%)
-# 👍Контракты совпадают
-#
-# ✅Фьючерсы: MEXC
-#     """
-#     is_valid, data = parse_telegram_message(message)
-#     print(data)
+

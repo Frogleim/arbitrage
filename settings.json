@@ -1,0 +1,6 @@
+{
+  "exchanges_from":
+          ["MEXC", "BINGX", "Binance"],
+  "exchanges_to":
+          ["BingX", "Binance"]
+}

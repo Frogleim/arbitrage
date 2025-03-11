@@ -1,3 +1,4 @@
 mexc-api
 python-dotenv
 telethon
+python-binance

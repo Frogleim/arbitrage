@@ -54,31 +54,30 @@ def get_sign(api_secret, payload):
     print("sign=" + signature)
     return signature
 
-def open_trade(symbol, exit_price, api_key, api_secret, quantity=None):
+def open_trade(symbol,  api_key, api_secret, exit_price, quantity=None):
     """Open a short market order using the current market price as entry."""
     try:
         is_valid, entry_price = get_market_price(symbol)
         if is_valid:
             res = set_leverage(symbol, api_key, api_secret)
             loggs.system_log.info(f"leverage={res}")
-            exit_price = float(exit_price) * 0.9
             path = '/openApi/swap/v2/trade/order'
-
-            take_profit = f'{{"type": "TAKE_PROFIT_MARKET", "stopPrice": {exit_price}, "price": {entry_price}, "workingType": "MARK_PRICE"}}'
+            limit_price = round(entry_price * 1.0005, 5)
 
             method = "POST"
             paramsMap = {
                 "symbol": f"{symbol}-USDT",
                 "side": "SELL",
                 "positionSide": "SHORT",
-                "type": "MARKET",
-                "quantity": 10,
+                "type": "LIMIT",
+                "price": limit_price ,
+                "quantity": round(10 / entry_price, 1),
             }
 
             paramsStr = parseParam(paramsMap)
             res = send_request(method, path, paramsStr, {}, api_key, api_secret)
             loggs.system_log.info(res)
-            if 'code' in res:
+            if 'code' in res and res['code'] == 0:
                 return True, 'Ok'
             else:
                 return False, 'Error'
@@ -87,6 +86,19 @@ def open_trade(symbol, exit_price, api_key, api_secret, quantity=None):
 
     except Exception as e:
         return False, str(e)
+
+
+def get_order_data(api_key, api_secret):
+    payload = {}
+    path = '/openApi/swap/v1/trade/fullOrder'
+    method = "GET"
+    paramsMap = {
+        "symbol": "GPS-USDT",
+    "limit": "500",
+    "timestamp": str(int(time.time() * 1000))
+}
+    paramsStr = parseParam(paramsMap)
+    return send_request(method, path, paramsStr, payload, api_key, api_secret)
 
 
 
@@ -110,14 +122,19 @@ def parseParam(paramsMap):
     """Convert params to a sorted query string."""
     sortedKeys = sorted(paramsMap)
     paramsStr = "&".join(["%s=%s" % (x, paramsMap[x]) for x in sortedKeys])
-    return paramsStr + "&timestamp=" + str(int(time.time() * 1000))
+    return paramsStr + "&timestamp=" +str(int(time.time() * 1000))
 
 
 if __name__ == '__main__':
+    # open_trade(
+    #     symbol="JUP",
+    #     exit_price=7.6,
+    #     api_key="K0doNDRAz90hGvBdCKeeK4S7eS5eurl6huMc9CvwyfeNHlKQBe3RUa40IFrLNZMb2Bg9t5oHN8bfrUiKOeeg",
+    #     api_secret="3DetCim4QMmEofEB6LhWBerht1D4gRl4h4XmztHwZagESgfCJsa86rM4JDXKmj2ZyI1aqufhJH4Nfp1Q",
+    # )
 
-
-    close_position(symbol='KAITO', api_key='8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA', api_secret='Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ')
-
+    # close_position(symbol='SOL', api_key='8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA', api_secret='Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ')
+    get_order_data(api_key="8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA", api_secret="Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ")
 
         # B4Ugtf2PRyE9lOjr8QEWS0OmjLR4D1LueKhhkupGBOTU9dAjMVShOJNKmAtnjkc0Yh6NhSyZjI4rIIFfmsXLQ
         # b57tloU10BxiNpc6sKe6kiue9tSxws8WLMkv4hABkitBPBOP5hAV6WalzR2YrwKRuLvE26h6xNuLOXb8MmgQ
