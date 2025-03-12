@@ -71,7 +71,7 @@ def open_trade(symbol,  api_key, api_secret, exit_price, quantity=None):
                 "positionSide": "SHORT",
                 "type": "LIMIT",
                 "price": limit_price ,
-                "quantity": round(10 / entry_price, 1),
+                "quantity": round(3 / entry_price, 1),
             }
 
             paramsStr = parseParam(paramsMap)

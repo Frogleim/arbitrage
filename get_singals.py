@@ -187,9 +187,9 @@ async def run_telegram_client(user_id):
 
             if data['exchange_from'] == "MEXC" and data['exchange_to'] == "BingX":
                 await send_message_user(user_id, "Received signal! Buying crypto")
-                # is_finished, msg = buy_crypto(data, keys)
-                msg = 'ok'
-                is_finished = True
+                is_finished, msg = buy_crypto(data, keys)
+                # msg = 'ok'
+                # is_finished = True
                 if is_finished:
                     await send_message_user(user_id, f"✅ All orders completed successfully!\n{msg}")
                 else:
@@ -280,7 +280,9 @@ def clean_text(text):
 
 
         print(d)
-        if d['exchange_from'] != "MEXC" or d['exchange_to'] != "BingX":
+        with open("settings.json", "r") as f:
+            data = json.load(f)
+        if d['exchange_from'] not in data['exchanges_from'] or d['exchange_to'] not in data['exchanges_to']:
             print("❌ Error: Exchange mismatch (Expected MEXC -> BingX)")
             return False, None
         return True, d
@@ -302,7 +304,7 @@ def clean_text(text):
         }
 
         print(d)
-        with open("file.json", "r") as f:
+        with open("settings.json", "r") as f:
             data = json.load(f)
         if d['exchange_from'] not in data['exchanges_from'] or d['exchange_to'] not in data['exchanges_to']:
             print("❌ Error: Exchange mismatch (Expected MEXC -> BingX)")

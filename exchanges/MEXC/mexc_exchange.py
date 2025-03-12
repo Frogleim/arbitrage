@@ -91,7 +91,7 @@ class Mexc:
             "side": "BUY",
             "type": "MARKET",
             # "price": price,
-            "quoteOrderQty": str(10)
+            "quoteOrderQty": str(3)
         }
         response = self._send_request("POST", endpoint, params)
         loggs.system_log.info(response)
