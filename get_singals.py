@@ -5,6 +5,7 @@ import re
 from telethon import TelegramClient, events
 from telethon.tl.functions.messages import SendMessageRequest
 from arbitrage_v2 import buy_crypto
+from open_position_handler import PositionHandler
 
 # Global dictionary for user sessions
 user_sessions = {}
@@ -165,8 +166,10 @@ async def run_telegram_client(user_id):
     mexc_api_secret = user_data["mexc_api_secret"]
     bingx_api_key = user_data["bingx_api_key"]
     bingx_api_secret = user_data["bingx_api_secret"]
+    binance_api_key = user_data["binance_api_key"]
+    binance_api_secret = user_data["binance_api_secret"]
 
-    keys.extend([mexc_api_key, mexc_api_secret, bingx_api_key, bingx_api_secret])
+    keys.extend([mexc_api_key, mexc_api_secret, bingx_api_key, bingx_api_secret, binance_api_key, binance_api_secret])
     print(keys)
     client = TelegramClient(f"user_session_{user_id}", api_id, api_hash)
 
@@ -174,9 +177,6 @@ async def run_telegram_client(user_id):
     async def handler(event):
         """ Processes incoming trading signals """
         is_valid_signal, data = clean_text(event.message.text)
-        # is_valid_signal = True
-        # data = {'exchange_from': 'MEXC', 'price_from': '0.204303', 'quantity_from': 235800, 'orders_count_from': '3', 'exchange_to': 'BingX', 'price_to': '0.205398', 'quantity_to': 235800, 'orders_count_to': '5', 'token': 'PYTH'}
-
         print('Signal is valid:', is_valid_signal)
         if is_valid_signal:
             message = (f"📢 Signal received:\n"
@@ -187,9 +187,11 @@ async def run_telegram_client(user_id):
 
             if data['exchange_from'] == "MEXC" and data['exchange_to'] == "BingX":
                 await send_message_user(user_id, "Received signal! Buying crypto")
-                is_finished, msg = buy_crypto(data, keys)
-                # msg = 'ok'
-                # is_finished = True
+                position_handler = PositionHandler(
+                    keys=keys,
+                    signal_data=data,
+                )
+                is_finished, msg = position_handler.run()
                 if is_finished:
                     await send_message_user(user_id, f"✅ All orders completed successfully!\n{msg}")
                 else:

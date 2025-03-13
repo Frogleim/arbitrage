@@ -1,6 +1,6 @@
 from binance.client import Client
 from binance.enums import *
-import loggs
+from . import loggs
 import math
 
 
@@ -22,6 +22,13 @@ def adjust_quantity(client, symbol, quantity):
 
     return quantity
 
+
+def get_spot_price(symbol):
+    client = Client()
+
+    ticker = client.get_symbol_ticker(symbol=f"{symbol}USDT")
+    return float(ticker["price"])
+
 def buy_crypto(api_key, api_secret, symbol):
     loggs.system_log.info(f'Buying {symbol} in Binance Spot account')
 
@@ -41,7 +48,7 @@ def buy_crypto(api_key, api_secret, symbol):
             return
 
         btc_price = float(ticker["price"])
-        quantity = round(8 / btc_price)  # Initial calculation
+        quantity = round(2 / btc_price)  # Initial calculation
 
         # Adjust quantity based on Binance LOT_SIZE rules
         quantity = adjust_quantity(client, f"{symbol}USDT", quantity)

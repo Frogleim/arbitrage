@@ -9,10 +9,21 @@ from dotenv import load_dotenv
 load_dotenv()
 
 APIURL = "https://open-api.bingx.com"
-APIKEY = os.getenv('BINGX_API_KEY')
-SECRETKEY = os.getenv('BINGX_SECRET_KEY')
 
-def buy_crypto(coin, quantity):
+
+
+def get_market_price(token, api_key, api_secret):
+    payload = {}
+    path = '/openApi/spot/v1/ticker/price'
+    method = "GET"
+    paramsMap = {
+    "symbol": f"{token}_USDT"
+}
+    paramsStr = parseParam(paramsMap)
+    return send_request(method, path, paramsStr, payload, api_key, api_secret)
+
+
+def buy_crypto(coin, quantity, api_key, api_secret):
     payload = {}
     path = '/openApi/spot/v1/trade/order'
     method = "POST"
@@ -20,14 +31,14 @@ def buy_crypto(coin, quantity):
     "type": "MARKET",
     "symbol": f"{coin}-USDT",
     "side": "BUY",
-    "quantity": quantity,
+    "quoteOrderQty": 10,
     "newClientOrderId": "",
     "recvWindow": 1000,
     "timeInForce": "GTC",
     "timestamp": str(int(time.time() * 1000))
 }
     paramsStr = parseParam(paramsMap)
-    return send_request(method, path, paramsStr, payload)
+    return send_request(method, path, paramsStr, payload, api_key, api_secret)
 
 def get_sign(api_secret, payload):
     signature = hmac.new(api_secret.encode("utf-8"), payload.encode("utf-8"), digestmod=sha256).hexdigest()
@@ -35,11 +46,11 @@ def get_sign(api_secret, payload):
     return signature
 
 
-def send_request(method, path, urlpa, payload):
-    url = "%s%s?%s&signature=%s" % (APIURL, path, urlpa, get_sign(SECRETKEY, urlpa))
+def send_request(method, path, urlpa, payload, api_key, api_secret):
+    url = "%s%s?%s&signature=%s" % (APIURL, path, urlpa, get_sign(api_secret, urlpa))
     print(url)
     headers = {
-        'X-BX-APIKEY': APIKEY,
+        'X-BX-APIKEY': api_key,
     }
     response = requests.request(method, url, headers=headers, data=payload)
     return response.text

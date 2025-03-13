@@ -3,6 +3,7 @@ import hmac
 from hashlib import sha256
 from exchanges.BingX import bingx_futures
 from exchanges.MEXC import mexc_exchange
+from exchanges.Binance import futures, spot
 from exchanges import loggs
 import os
 from dotenv import load_dotenv
@@ -25,12 +26,13 @@ def get_signature(api_secret, payload):
     print(f"🔍 Signature: {signature}")  # ✅ Debugging
     return signature
 
-def check_coins_exist_bingx(token):
-    is_exist, _ = bingx_futures.get_market_price(token)
-    if is_exist:
-        return True
-    else:
-        return False
+
+def check_coins_exist(token):
+    """Check if a token exists on BingX or Binance Futures."""
+    is_exist_bingx, _ = bingx_futures.get_market_price(token)
+    is_exist_binance, _ = futures.get_market_price(token)
+
+    return is_exist_bingx or is_exist_binance
 
 
 def get_signal(signal_json: Optional[dict] = None, keys: list = None) -> Tuple[bool, str]:
@@ -63,7 +65,7 @@ def get_signal(signal_json: Optional[dict] = None, keys: list = None) -> Tuple[b
 
 
 def buy_crypto(signal_data, api_keys: list):
-    coin_exist = check_coins_exist_bingx(signal_data['token'])
+    coin_exist = check_coins_exist(signal_data['token'])
     if not coin_exist:
         return False, 'Coin doesnt exist in Bingx Futures'
     mexc = mexc_exchange.Mexc(api_keys[0], api_keys[1])
@@ -110,6 +112,7 @@ def buy_crypto(signal_data, api_keys: list):
             return False, msg
     else:
         return False, "Signal is not profitable"
+
 
 
 

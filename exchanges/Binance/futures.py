@@ -1,7 +1,16 @@
 from binance.client import Client
-import loggs
+from . import loggs
 from binance.enums import *
 import math
+
+
+def get_market_price(symbol):
+    client = Client()
+    price = client.futures_mark_price(symbol=f'{symbol}USDT')
+    return price['markPrice']
+
+
+
 
 
 def open_position(api_key, api_secret, symbol):
@@ -32,13 +41,15 @@ def open_position(api_key, api_secret, symbol):
             side=SIDE_SELL,
             type=ORDER_TYPE_LIMIT,
             price=round(adjusted_price, 5),
-            quantity=7,
+            quantity=2,
             timeInForce="GTC"
 
         )
         loggs.system_log.info(f'Position opened with side: SELL')
+        return True, f'Futures Position Opened with price: {adjusted_price}'
     except Exception as e:
         loggs.error_logs_logger.error(f"Error while closing position: {e}")
+        return False, f"Error while closing position: {e}"
 
 
 if __name__ == '__main__':
