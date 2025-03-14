@@ -3,14 +3,12 @@ import json
 import os
 import re
 from telethon import TelegramClient, events
-from telethon.tl.functions.messages import SendMessageRequest
-from arbitrage_v2 import buy_crypto
 from open_position_handler import PositionHandler
 
 # Global dictionary for user sessions
 user_sessions = {}
 keys = []
-CREDENTIALS_FILE = "credentials.json"
+CREDENTIALS_FILE = "settings/credentials.json"
 
 # Telegram Bot Token
 BOT_TOKEN = "7571515908:AAEcznoSzBDCal1porW7MA6ayNWfk6PnuIc"  # Replace with your bot token
@@ -185,18 +183,17 @@ async def run_telegram_client(user_id):
                        f"📉 To: {data['exchange_to']} at {data['price_to']}")
             await send_message_user(user_id, message)
 
-            if data['exchange_from'] == "MEXC" and data['exchange_to'] == "BingX":
-                await send_message_user(user_id, "Received signal! Buying crypto")
-                position_handler = PositionHandler(
-                    keys=keys,
-                    signal_data=data,
-                )
-                is_finished, msg = position_handler.run()
-                if is_finished:
-                    await send_message_user(user_id, f"✅ All orders completed successfully!\n{msg}")
-                else:
+            await send_message_user(user_id, "Received signal! Buying crypto")
+            position_handler = PositionHandler(
+                keys=keys,
+                signal_data=data,
+            )
+            is_finished, msg = position_handler.run()
+            if is_finished:
+                await send_message_user(user_id, f"✅ All orders completed successfully!\n{msg}")
+            else:
 
-                    await send_message_user(user_id, f"❌ Arbitrage doesnt complete!\n{msg}")
+                await send_message_user(user_id, f"❌ Arbitrage doesnt complete!\n{msg}")
 
     await client.start(phone_number)
     await send_message_user(user_id, "✅ Listening for signals from @ArbitrageSmartBot...")
@@ -282,7 +279,7 @@ def clean_text(text):
 
 
         print(d)
-        with open("settings.json", "r") as f:
+        with open("settings/settings.json", "r") as f:
             data = json.load(f)
         if d['exchange_from'] not in data['exchanges_from'] or d['exchange_to'] not in data['exchanges_to']:
             print("❌ Error: Exchange mismatch (Expected MEXC -> BingX)")
@@ -306,7 +303,7 @@ def clean_text(text):
         }
 
         print(d)
-        with open("settings.json", "r") as f:
+        with open("settings/settings.json", "r") as f:
             data = json.load(f)
         if d['exchange_from'] not in data['exchanges_from'] or d['exchange_to'] not in data['exchanges_to']:
             print("❌ Error: Exchange mismatch (Expected MEXC -> BingX)")
