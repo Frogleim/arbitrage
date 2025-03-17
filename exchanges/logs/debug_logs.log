@@ -10,3 +10,24 @@
 1.03 beta - 2025-02-07 15:12:28,653 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926748624}
 1.03 beta - 2025-02-07 15:12:45,839 - DEBUG - {'code': 10270, 'msg': 'The currency withdrawal must be the specified primary blockchain.', 'timestamp': 1738926765803}
 1.03 beta - 2025-02-07 15:44:27,351 - DEBUG - {'code': 700002, 'msg': 'Signature for this request is not valid.'}
+1.03 beta - 2025-03-15 19:41:55,774 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-15 19:41:55,774 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-15 19:41:55,774 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-15 19:49:24,725 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-15 19:49:24,725 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-15 19:49:24,725 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 07:17:37,113 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 07:17:37,113 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 07:17:37,113 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 14:03:01,319 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 14:03:01,319 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 14:03:01,319 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 14:16:16,010 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 14:16:16,010 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 14:16:16,010 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 16:29:16,906 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 16:29:16,906 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-16 16:29:16,906 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-17 06:55:06,515 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-17 06:55:06,515 - DEBUG - Position side for opening position: SELL
+1.03 beta - 2025-03-17 06:55:06,515 - DEBUG - Position side for opening position: SELL

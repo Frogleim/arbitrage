@@ -12,3 +12,30 @@ APIError(code=-1013): Filter failure: LOT_SIZE
 1.03 beta - 2025-03-11 20:47:06,220 - ERROR - Error while buying POL in Binance Spot: APIError(code=-1111): Parameter 'quantity' has too much precision.
 1.03 beta - 2025-03-11 20:47:30,064 - ERROR - Error while buying POL in Binance Spot: APIError(code=-1111): Parameter 'quantity' has too much precision.
 1.03 beta - 2025-03-11 20:47:56,343 - ERROR - Error while buying POL in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-15 04:48:28,206 - ERROR - Calculated quantity (0.001) is below min LOT_SIZE.
+1.03 beta - 2025-03-15 04:48:28,206 - ERROR - Calculated quantity (0.001) is below min LOT_SIZE.
+1.03 beta - 2025-03-15 04:48:28,206 - ERROR - Calculated quantity (0.001) is below min LOT_SIZE.
+1.03 beta - 2025-03-15 08:01:41,878 - ERROR - Error while buying TROY in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-15 08:01:41,878 - ERROR - Error while buying TROY in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-15 08:01:41,878 - ERROR - Error while buying TROY in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-15 08:32:58,359 - ERROR - Error while buying TROY in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-15 08:32:58,359 - ERROR - Error while buying TROY in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-15 08:32:58,359 - ERROR - Error while buying TROY in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-15 19:49:25,485 - ERROR - Error while closing position: APIError(code=-4164): Order's notional must be no smaller than 5 (unless you choose reduce only).
+1.03 beta - 2025-03-15 19:49:25,485 - ERROR - Error while closing position: APIError(code=-4164): Order's notional must be no smaller than 5 (unless you choose reduce only).
+1.03 beta - 2025-03-15 19:49:25,485 - ERROR - Error while closing position: APIError(code=-4164): Order's notional must be no smaller than 5 (unless you choose reduce only).
+1.03 beta - 2025-03-15 19:57:28,777 - ERROR - Error while buying KAITO in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-15 19:57:28,777 - ERROR - Error while buying KAITO in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-15 19:57:28,777 - ERROR - Error while buying KAITO in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-16 07:17:37,874 - ERROR - Error while closing position: APIError(code=-4014): Price not increased by tick size.
+1.03 beta - 2025-03-16 07:17:37,874 - ERROR - Error while closing position: APIError(code=-4014): Price not increased by tick size.
+1.03 beta - 2025-03-16 07:17:37,874 - ERROR - Error while closing position: APIError(code=-4014): Price not increased by tick size.
+1.03 beta - 2025-03-16 14:03:02,360 - ERROR - Error while closing position: APIError(code=-1106): Parameter 'timeinforce' sent when not required.
+1.03 beta - 2025-03-16 14:03:02,360 - ERROR - Error while closing position: APIError(code=-1106): Parameter 'timeinforce' sent when not required.
+1.03 beta - 2025-03-16 14:03:02,360 - ERROR - Error while closing position: APIError(code=-1106): Parameter 'timeinforce' sent when not required.
+1.03 beta - 2025-03-16 14:16:16,754 - ERROR - Error while closing position: APIError(code=-4164): Order's notional must be no smaller than 5 (unless you choose reduce only).
+1.03 beta - 2025-03-16 14:16:16,754 - ERROR - Error while closing position: APIError(code=-4164): Order's notional must be no smaller than 5 (unless you choose reduce only).
+1.03 beta - 2025-03-16 14:16:16,754 - ERROR - Error while closing position: APIError(code=-4164): Order's notional must be no smaller than 5 (unless you choose reduce only).
+1.03 beta - 2025-03-17 06:55:07,579 - ERROR - Error while closing position: APIError(code=-4164): Order's notional must be no smaller than 5 (unless you choose reduce only).
+1.03 beta - 2025-03-17 06:55:07,579 - ERROR - Error while closing position: APIError(code=-4164): Order's notional must be no smaller than 5 (unless you choose reduce only).
+1.03 beta - 2025-03-17 06:55:07,579 - ERROR - Error while closing position: APIError(code=-4164): Order's notional must be no smaller than 5 (unless you choose reduce only).

@@ -90,13 +90,12 @@ class Mexc:
             "symbol": f"{coin}USDT",
             "side": "BUY",
             "type": "MARKET",
-            # "price": price,
+            #"price": last_price,
             "quoteOrderQty": str(3)
         }
         response = self._send_request("POST", endpoint, params)
         loggs.system_log.info(response)
         return response
-
 
     def check_balance(self, coin):
         """Check account balance for a specific coin."""

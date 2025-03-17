@@ -21,7 +21,7 @@ class PositionHandler:
             is_exist_bingx, _ = bingx_futures.get_market_price(self.signal_data['token'])
             return is_exist_bingx
         elif self.signal_data['exchange_to'] == 'Binance':
-            is_exist_binance, _ = futures.get_market_price(self.signal_data['token'])
+            is_exist_binance = futures.get_market_price(self.signal_data['token'])
             return is_exist_binance
         return False  # If the exchange is unknown
 
@@ -35,32 +35,33 @@ class PositionHandler:
         if self.exchange_pair['from'] == 'MEXC' and self.exchange_pair['to'] == 'BingX':
             mexc_last_price = self.mexc.get_last_price(self.signal_data['token'])
             _, bingx_last_price = bingx_futures.get_market_price(self.signal_data['token'])
-            if bingx_last_price is None:
-                return False, f'Symbol {self.signal_data["token"]} symbol not exist, please verify it in api'
-            if float(bingx_last_price) < float(mexc_last_price):
-                return False, 'Signal is not profitable. BingX price is lower than MEXC.'
+            loggs.system_log.info(f"mexc_last_price={mexc_last_price} signal mexc last_price={self.signal_data['price_from']} "
+                                  f"bingx_last_price={bingx_last_price} signal bingx_signal_price={self.signal_data['price_to']}")
+            return True, 'Signal is valid'
+   
 
         elif self.exchange_pair['from'] == 'MEXC' and self.exchange_pair['to'] == 'Binance':
             mexc_last_price = self.mexc.get_last_price(self.signal_data['token'])
-            binance_price, _ = futures.get_market_price(self.signal_data['token'])
-            if float(binance_price) < float(mexc_last_price):
-                return False, 'Signal is not profitable. Binance price is lower than MEXC.'
+            binance_price = futures.get_market_price(self.signal_data['token'])
+            loggs.system_log.info(
+                f"mexc_last_price={mexc_last_price} signal mexc last_price={self.signal_data['price_from']} "
+                f"binance_last_price={binance_price} signal binance_signal_price={self.signal_data['price_to']}")
+            
+            
+            return True, 'Signal is valid'
 
-        elif self.exchange_pair['from'] == 'Binance' and self.exchange_pair['to'] == 'BingX':
-            binance_price, _ = spot.get_spot_price(self.signal_data['token'])
-            _, bingx_last_price = bingx_futures.get_market_price(self.signal_data['token'])
-            if bingx_last_price is None:
-                return False, f'Symbol {self.signal_data["token"]} symbol not exist, please verify it in api'
-            if float(bingx_last_price) < float(binance_price):
-                return False, 'Signal is not profitable. BingX price is lower than Binance.'
 
         elif self.exchange_pair['from'] == 'BingX' and self.exchange_pair['to'] == 'Binance':
             _, bingx_last_price = bingx_buy.get_market_price(self.signal_data['token'], self.bingx_api_key, self.bingx_api_secret)
-            binance_price, _ = futures.get_market_price(self.signal_data['token'])
-            if float(binance_price) < float(bingx_last_price):
-                return False, 'Signal is not profitable. Binance price is lower than BingX.'
+            binance_price  = futures.get_market_price(self.signal_data['token'])
+            loggs.system_log.info(
+                f"bingx_last_price={bingx_last_price} signal mexc last_price={self.signal_data['price_from']} "
+                f"binance_last_price={binance_price} signal binance_signal_price={self.signal_data['price_to']}")
+            return True, 'Signal is valid'
 
-        return True, "Signal is valid."
+        else:
+            return False, 'Signal is invalid'
+
 
     def open_spot(self):
         """Buy crypto in the spot market of the source exchange."""

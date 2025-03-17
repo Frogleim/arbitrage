@@ -62,7 +62,7 @@ def open_trade(symbol,  api_key, api_secret, exit_price, quantity=None):
             res = set_leverage(symbol, api_key, api_secret)
             loggs.system_log.info(f"leverage={res}")
             path = '/openApi/swap/v2/trade/order'
-            limit_price = round(entry_price * 1.0005, 5)
+            limit_price = round(entry_price, 5)
 
             method = "POST"
             paramsMap = {
