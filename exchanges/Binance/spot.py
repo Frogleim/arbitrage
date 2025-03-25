@@ -1,6 +1,6 @@
 from binance.client import Client
 from binance.enums import *
-from . import loggs
+from  exchanges import loggs
 import math
 
 
@@ -72,7 +72,7 @@ def buy_crypto(api_key, api_secret, symbol):
 if __name__ == '__main__':
     api_key = 'B9Wpsjh6a3XCSYqod3XbXBeFh1ZMykOOAo6tdd2ORJVyLn2xwsIBiaS4jI1Z9kKA'
     api_secret = 'Fqos3cwhSYos1cAldVUa3dOB2pI7R6STJ3bGbwnyB0uvfEae4ybih6CoWjcF3AlY'
-    symbol = 'ADA'
+    symbol = 'OP'
     buy_crypto(
         api_key=api_key,
         api_secret=api_secret,

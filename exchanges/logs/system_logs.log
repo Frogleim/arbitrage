@@ -1,65 +1,79 @@
-1.03 beta - 2025-03-13 16:09:16,126 - INFO - leverage={'code': 0, 'msg': '', 'data': {'leverage': 10, 'symbol': 'OP-USDT', 'availableLongVol': '80.6', 'availableShortVol': '40.5', 'availableLongVal': '69.3069', 'availableShortVal': '34.8259', 'maxPositionLongVal': '800000.0000', 'maxPositionShortVal': '2000000.0000'}}
-1.03 beta - 2025-03-13 16:09:16,522 - INFO - {'code': 0, 'msg': '', 'data': {'order': {'orderId': 1900157208949387264, 'orderID': '1900157208949387264', 'symbol': 'OP-USDT', 'positionSide': 'SHORT', 'side': 'SELL', 'type': 'LIMIT', 'price': 0.86023, 'quantity': 3.5, 'stopPrice': 0, 'workingType': 'MARK_PRICE', 'clientOrderID': '', 'clientOrderId': '', 'timeInForce': 'GTC', 'priceRate': 0, 'stopLoss': '', 'takeProfit': '', 'reduceOnly': False, 'activationPrice': 0, 'closePosition': '', 'stopGuaranteed': '', 'status': 'NEW', 'avgPrice': '0.0000'}}}
-1.03 beta - 2025-03-13 20:34:57,980 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 20:34:57,980 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 20:34:57,980 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 20:58:07,722 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 20:58:07,722 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 20:58:07,722 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 20:58:08,548 - INFO - ✅ Signal validated successfully!
-1.03 beta - 2025-03-13 20:58:08,548 - INFO - ✅ Signal validated successfully!
-1.03 beta - 2025-03-13 20:58:08,548 - INFO - ✅ Signal validated successfully!
-1.03 beta - 2025-03-13 20:58:09,937 - INFO - {'code': 700006, 'msg': 'IP [194.61.89.82] not in the ip white list'}
-1.03 beta - 2025-03-13 20:58:09,937 - INFO - {'code': 700006, 'msg': 'IP [194.61.89.82] not in the ip white list'}
-1.03 beta - 2025-03-13 20:58:09,937 - INFO - {'code': 700006, 'msg': 'IP [194.61.89.82] not in the ip white list'}
-1.03 beta - 2025-03-13 20:58:09,938 - WARNING - IP [194.61.89.82] not in the ip white list
-1.03 beta - 2025-03-13 20:58:09,938 - WARNING - IP [194.61.89.82] not in the ip white list
-1.03 beta - 2025-03-13 20:58:09,938 - WARNING - IP [194.61.89.82] not in the ip white list
-1.03 beta - 2025-03-13 21:01:15,992 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:01:15,992 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:01:15,992 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:01:16,762 - WARNING - Symbol PIN symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:01:16,762 - WARNING - Symbol PIN symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:01:16,762 - WARNING - Symbol PIN symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:13:16,822 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:13:16,822 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:13:16,822 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:13:17,689 - WARNING - Symbol HAPPY symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:13:17,689 - WARNING - Symbol HAPPY symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:13:17,689 - WARNING - Symbol HAPPY symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:13:17,691 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:13:17,691 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:13:17,691 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:13:18,336 - WARNING - Symbol NPC symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:13:18,336 - WARNING - Symbol NPC symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:13:18,336 - WARNING - Symbol NPC symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:14:19,209 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:14:19,209 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:14:19,209 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:14:21,436 - WARNING - Symbol PIN symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:14:21,436 - WARNING - Symbol PIN symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:14:21,436 - WARNING - Symbol PIN symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:16:22,463 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:16:22,463 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:16:22,463 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:16:23,267 - WARNING - Symbol NPC symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:16:23,267 - WARNING - Symbol NPC symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:16:23,267 - WARNING - Symbol NPC symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:20:04,305 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:20:04,305 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:20:04,305 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:20:05,211 - WARNING - Symbol HAPPY symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:20:05,211 - WARNING - Symbol HAPPY symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:20:05,211 - WARNING - Symbol HAPPY symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:22:30,023 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:22:30,023 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:22:30,023 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:22:30,896 - WARNING - Symbol NPC symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:22:30,896 - WARNING - Symbol NPC symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:22:30,896 - WARNING - Symbol NPC symbol not exist, please verify it in api
-1.03 beta - 2025-03-13 21:42:10,826 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:42:10,826 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:42:10,826 - INFO - 🔍 Running arbitrage strategy...
-1.03 beta - 2025-03-13 21:42:11,624 - WARNING - Signal is not profitable. BingX price is lower than MEXC.
-1.03 beta - 2025-03-13 21:42:11,624 - WARNING - Signal is not profitable. BingX price is lower than MEXC.
-1.03 beta - 2025-03-13 21:42:11,624 - WARNING - Signal is not profitable. BingX price is lower than MEXC.
+1.03 beta - 2025-03-25 21:13:01,046 - INFO - ✅ User 6575738141 started the bot.
+1.03 beta - 2025-03-25 21:13:01,183 - INFO - 📩 Received message from 6575738141: /start
+1.03 beta - 2025-03-25 21:13:09,997 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 21:15:00,714 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 21:23:45,936 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 21:23:46,163 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 21:24:10,128 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 21:24:16,989 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 21:29:35,034 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 21:34:57,714 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 21:41:49,083 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 21:41:49,409 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 21:41:51,210 - INFO - ✅ MEXC price: 0.0007015
+1.03 beta - 2025-03-25 21:41:51,211 - INFO - ✅ Binance price: 0.00070700
+1.03 beta - 2025-03-25 21:41:51,211 - INFO - ✅ Signal validated successfully!
+1.03 beta - 2025-03-25 21:41:52,219 - INFO - {'symbol': 'LINAUSDT', 'orderId': 'C02__533273357899042818021', 'orderListId': -1, 'price': '0.0007365', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1742924512129}
+1.03 beta - 2025-03-25 21:41:52,219 - INFO - ✅ Spot buy executed successfully!
+1.03 beta - 2025-03-25 21:41:53,252 - WARNING - Error opening position in Binance Futures: APIError(code=-4028): Leverage 20 is not valid
+1.03 beta - 2025-03-25 21:43:23,579 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 21:43:23,872 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 21:43:26,022 - WARNING - Signal signal is not profitable
+Binance price: 0.57979175 < MEXC 0.5941
+1.03 beta - 2025-03-25 21:55:50,609 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 21:55:50,812 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 22:04:37,474 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 22:04:37,813 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 22:04:40,250 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 22:04:40,647 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 22:04:42,744 - WARNING - Signal signal is not profitable
+Binance price: 0.56288838 < MEXC 0.56418
+1.03 beta - 2025-03-25 22:04:49,158 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 22:06:30,751 - INFO - 📩 Received message from 618075419: yes
+1.03 beta - 2025-03-25 22:06:47,703 - INFO - ✅ User 618075419 started the bot.
+1.03 beta - 2025-03-25 22:06:47,811 - INFO - 📩 Received message from 618075419: /start
+1.03 beta - 2025-03-25 22:06:52,389 - INFO - 📩 Received message from 618075419: yes
+1.03 beta - 2025-03-25 22:06:58,414 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 22:06:58,706 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 22:06:59,910 - WARNING - Signal signal is not profitable
+Binance price: 0.20871177 < BingX 0.2094
+1.03 beta - 2025-03-25 22:07:12,775 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 22:07:12,973 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 22:07:13,948 - WARNING - Invalid price data from exchanges
+1.03 beta - 2025-03-25 22:08:26,008 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 22:08:51,111 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 22:09:22,163 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 22:09:22,355 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 22:09:22,355 - WARNING - Signal is invalid
+1.03 beta - 2025-03-25 22:10:45,968 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 22:10:46,286 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 22:12:07,236 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 22:12:07,430 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 22:12:07,430 - WARNING - Signal is invalid
+1.03 beta - 2025-03-25 22:14:58,065 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 22:15:19,011 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 22:15:19,229 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 22:15:19,754 - INFO - KuCoin Latest DOGE-USDT spot price: 0.1915
+1.03 beta - 2025-03-25 22:15:20,744 - WARNING - Signal signal is not profitable
+Binance price: 0.19139707 < KuCoin 0.1915
+1.03 beta - 2025-03-25 22:16:31,184 - INFO - Signal is valid: True
+1.03 beta - 2025-03-25 22:16:31,395 - INFO - 🔍 Running arbitrage strategy...
+1.03 beta - 2025-03-25 22:16:32,801 - INFO - ✅ MEXC price: 0.00121
+1.03 beta - 2025-03-25 22:16:32,801 - INFO - ✅ Binance price: 0.00121736
+1.03 beta - 2025-03-25 22:16:32,802 - INFO - ✅ Signal validated successfully!
+1.03 beta - 2025-03-25 22:16:33,893 - INFO - {'symbol': 'HOTUSDT', 'orderId': 'C02__533282088959397891021', 'orderListId': -1, 'price': '0.00127', 'origQty': '0', 'type': 'MARKET', 'side': 'BUY', 'transactTime': 1742926593776}
+1.03 beta - 2025-03-25 22:16:33,893 - INFO - ✅ Spot buy executed successfully!
+1.03 beta - 2025-03-25 22:16:36,296 - WARNING - Binance order executed successfully.
+1.03 beta - 2025-03-25 22:20:01,711 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 22:20:31,042 - INFO - Signal is valid: False
+1.03 beta - 2025-03-25 22:25:49,954 - INFO - KuCoin Latest ACE-USDT spot price: 0.001441
+1.03 beta - 2025-03-25 22:26:17,889 - INFO - KuCoin Latest ACE-USDT spot price: 0.001441
+1.03 beta - 2025-03-25 22:26:22,516 - INFO - KuCoin Latest ACE-USDT spot price: 0.001441
+1.03 beta - 2025-03-25 22:26:30,190 - INFO - KuCoin Latest ACE-USDT spot price: 0.001443
+1.03 beta - 2025-03-25 22:26:43,359 - INFO - KuCoin Latest ACE-USDT spot price: 0.001443
+1.03 beta - 2025-03-25 22:27:01,842 - INFO - KuCoin Latest ACE-USDT spot price: 0.001442
+1.03 beta - 2025-03-25 22:27:24,612 - INFO - KuCoin Latest ACE-USDT spot price: 0.001442
+1.03 beta - 2025-03-25 22:27:39,640 - INFO - KuCoin Latest ACE-USDT spot price: 0.001443
+1.03 beta - 2025-03-25 22:27:48,244 - INFO - KuCoin Latest ACE-USDT spot price: 0.001443
+1.03 beta - 2025-03-25 22:27:57,589 - INFO - KuCoin Latest ACE-USDT spot price: 0.001443
+1.03 beta - 2025-03-25 22:28:20,919 - INFO - KuCoin Latest ACE-USDT spot price: 0.001443

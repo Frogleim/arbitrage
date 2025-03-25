@@ -2,8 +2,10 @@ import time
 import requests
 import hmac
 from hashlib import sha256
-# import loggs
-from . import loggs
+from exchanges import loggs
+# from . import loggs
+from datetime import datetime, timedelta
+
 
 
 APIURL = "https://open-api.bingx.com"
@@ -31,6 +33,28 @@ def get_market_price(symbol):
         return True, float(data["data"]["price"])
     else:
         return False, None
+
+
+def get_all_orders(api_key, api_secret):
+    now = int(time.time() * 1000)
+
+    # Calculate timestamps for yesterday and tomorrow
+    start_time = int((datetime.utcnow() - timedelta(days=1)).timestamp() * 1000)  # Yesterday
+    end_time = int((datetime.utcnow() + timedelta(days=1)).timestamp() * 1000)  # Tomorrow
+
+    payload = {}
+    path = '/openApi/swap/v1/trade/fullOrder'
+    method = "GET"
+    paramsMap = {
+    "endTime":end_time,
+    "limit": "500",
+    "startTime": start_time,
+    "symbol": "COOKIE-USDT",
+    "timestamp": str(int(time.time() * 1000))
+}
+    paramsStr = parseParam(paramsMap)
+    return send_request(method, path, paramsStr, payload, api_key, api_secret)
+
 
 
 def set_leverage(symbol,  api_key, api_secret, leverage=10):
@@ -62,7 +86,7 @@ def open_trade(symbol,  api_key, api_secret, exit_price, quantity=None):
             res = set_leverage(symbol, api_key, api_secret)
             loggs.system_log.info(f"leverage={res}")
             path = '/openApi/swap/v2/trade/order'
-            limit_price = round(entry_price * 1.0005, 5)
+            limit_price = round(entry_price, 5)
 
             method = "POST"
             paramsMap = {
@@ -93,7 +117,7 @@ def get_order_data(api_key, api_secret):
     path = '/openApi/swap/v1/trade/fullOrder'
     method = "GET"
     paramsMap = {
-        "symbol": "GPS-USDT",
+        "symbol": "MELANIA-USDT",
     "limit": "500",
     "timestamp": str(int(time.time() * 1000))
 }
@@ -126,15 +150,15 @@ def parseParam(paramsMap):
 
 
 if __name__ == '__main__':
-    open_trade(
-        symbol="OP",
-        exit_price=7.6,
-        api_key="K0doNDRAz90hGvBdCKeeK4S7eS5eurl6huMc9CvwyfeNHlKQBe3RUa40IFrLNZMb2Bg9t5oHN8bfrUiKOeeg",
-        api_secret="3DetCim4QMmEofEB6LhWBerht1D4gRl4h4XmztHwZagESgfCJsa86rM4JDXKmj2ZyI1aqufhJH4Nfp1Q",
-    )
+    # open_trade(
+    #     symbol="OP",
+    #     exit_price=7.6,
+    #     api_key="K0doNDRAz90hGvBdCKeeK4S7eS5eurl6huMc9CvwyfeNHlKQBe3RUa40IFrLNZMb2Bg9t5oHN8bfrUiKOeeg",
+    #     api_secret="3DetCim4QMmEofEB6LhWBerht1D4gRl4h4XmztHwZagESgfCJsa86rM4JDXKmj2ZyI1aqufhJH4Nfp1Q",
+    # )
 
-    close_position(symbol='SOL', api_key='8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA', api_secret='Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ')
-    get_order_data(api_key="8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA", api_secret="Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ")
-
+    # close_position(symbol='SOL', api_key='8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA', api_secret='Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ')
+    res = get_order_data(api_key="8q6nlIOLurINPrWH2nnmNhO9SOsvA6kXtuR0DKRv81nWR2erWuZhTjhH9qxOA34HXb3oRLwhsGgb0WmqyDMA", api_secret="Db4epCQmHnqiHS4DJIgfeNHkTuimZdPuC41K0nJx8nMXFDIgqiJEePhPPvgiynbrZowvMAyd46c4RoLlwWvQ")
+    print(res)
         # B4Ugtf2PRyE9lOjr8QEWS0OmjLR4D1LueKhhkupGBOTU9dAjMVShOJNKmAtnjkc0Yh6NhSyZjI4rIIFfmsXLQ
         # b57tloU10BxiNpc6sKe6kiue9tSxws8WLMkv4hABkitBPBOP5hAV6WalzR2YrwKRuLvE26h6xNuLOXb8MmgQ

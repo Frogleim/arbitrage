@@ -90,7 +90,6 @@ class Mexc:
             "symbol": f"{coin}USDT",
             "side": "BUY",
             "type": "MARKET",
-            # "price": price,
             "quoteOrderQty": str(3)
         }
         response = self._send_request("POST", endpoint, params)

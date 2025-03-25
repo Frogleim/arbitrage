@@ -4,6 +4,8 @@ import os
 import re
 from telethon import TelegramClient, events
 from open_position_handler import PositionHandler
+from parse_signal import clean_text
+from exchanges import loggs
 
 # Global dictionary for user sessions
 user_sessions = {}
@@ -28,7 +30,7 @@ def load_credentials():
                 if isinstance(data, dict):  # Ensure it's a dictionary
                     return data
         except json.JSONDecodeError:
-            print("❌ Error: credentials.json is corrupted. Starting fresh.")
+            loggs.error_logs_logger.error("❌ Error: credentials.json is corrupted. Starting fresh.")
             return {}
     return {}
 
@@ -42,6 +44,7 @@ def save_credentials():
 # ✅ Load credentials at startup
 user_sessions = load_credentials()
 print(f"🔄 Loaded user_sessions: {user_sessions}")  # Debugging
+loggs.system_log.info(f"🔄 Loaded user_sessions: {user_sessions}")  # Debugging
 
 
 async def send_message_event(event, message):
@@ -59,7 +62,7 @@ async def start(event):
     """ Handles the /start command and checks if credentials exist """
     user_id = str(event.chat_id)
 
-    print(f"✅ User {user_id} started the bot.")  # Debugging
+    loggs.system_log.info(f"✅ User {user_id} started the bot.")  # Debugging
 
     if user_id in user_sessions:
         await send_message_event(event, "✅ Your credentials are already stored. Resuming arbitrage...")
@@ -75,7 +78,7 @@ async def handle_user_input(event):
     user_id = str(event.chat_id)
     text = event.message.message.strip()
 
-    print(f"📩 Received message from {user_id}: {text}")
+    loggs.system_log.info(f"📩 Received message from {user_id}: {text}")
 
     if user_id not in user_sessions:
         return
@@ -168,14 +171,13 @@ async def run_telegram_client(user_id):
     binance_api_secret = user_data["binance_api_secret"]
 
     keys.extend([mexc_api_key, mexc_api_secret, bingx_api_key, bingx_api_secret, binance_api_key, binance_api_secret])
-    print(keys)
     client = TelegramClient(f"user_session_{user_id}", api_id, api_hash)
 
     @client.on(events.NewMessage(chats='@ArbitrageSmartBot'))
     async def handler(event):
         """ Processes incoming trading signals """
         is_valid_signal, data = clean_text(event.message.text)
-        print('Signal is valid:', is_valid_signal)
+        loggs.system_log.info(f'Signal is valid: {is_valid_signal}')
         if is_valid_signal:
             message = (f"📢 Signal received:\n"
                        f"🔹 Token: {data['token']}\n"
@@ -200,125 +202,11 @@ async def run_telegram_client(user_id):
     await client.run_until_disconnected()
 
 
-def remove_price_ranges(data_list):
-    """ Removes elements that match the pattern of a number range (e.g., 0.03788-0.0379) """
-    return [item for item in data_list if not re.match(r'^\d+(\.\d+)?-\d+(\.\d+)?$', item)]
-
-
-def contains_numbered_symbol(text):
-    if "№" in text:
-        return True
-    else:
-        return False
-
-
-def convert_abbreviation(value):
-    """ Converts abbreviated numbers like '2.05K' into normal numbers (e.g., 2050) """
-    match = re.match(r'([\d.]+)([KMB]?)', value)  # Match number and optional suffix
-    if not match:
-        return value  # Return unchanged if no match
-
-    num, suffix = match.groups()
-    num = float(num)  # Convert to float
-
-    # Multiply based on suffix
-    if suffix == "K":
-        num *= 1_000
-    elif suffix == "M":
-        num *= 1_000_000
-    elif suffix == "B":
-        num *= 1_000_000_000
-
-    return int(num) if num.is_integer() else num
-
-def clean_text(text):
-    is_contain = contains_numbered_symbol(text)
-    print('Text contains:', is_contain)
-    text = re.sub(r'[^\w\s.,:|$()/\[\]-]', '', text, flags=re.UNICODE)
-
-    lines = text.strip().split("\n")
-    if len(lines) > 2:  # Ensure there are at least 3 lines to remove first and last
-        text = "\n".join(lines[1:-1])
-    # Remove all URLs
-    text = re.sub(r'https?://\S+', '', text)
-    text = re.sub(r'№\d+', '', text)
-
-    # Remove square brackets but keep the text inside them
-    text = re.sub(r'\[([^\]]+)\]', r'\1', text)
-
-    # Remove words that contain Cyrillic characters (if needed)
-    text = re.sub(r'\b[А-Яа-яЁё]+\b', '', text)
-    text = re.sub(r'[|,|/]', '', text)
-    text = re.sub(r'[()]', '', text)
-
-    # Remove extra spaces left from removed content
-    text = re.sub(r'\s+', ' ', text).strip()
-
-    # Remove specific unwanted characters like ':' and '$'
-    text = re.sub(r'[:$]', '', text)
-    l_data = text.split()
-    l_data = remove_price_ranges(l_data)
-
-    print(l_data)
-    if is_contain:
-        quantity_from = convert_abbreviation(l_data[5])
-        quantity_to = convert_abbreviation(l_data[10])
-        d = {
-        "exchange_from": l_data[2],
-        "price_from": l_data[3],
-        "quantity_from": quantity_from,
-        'orders_count_from': l_data[6],
-        "exchange_to": l_data[7],
-        "price_to": l_data[8],
-        "quantity_to": quantity_to,
-        "orders_count_to": l_data[11],
-        "token": l_data[0].replace('USDT', ''),
-
-        }
-
-
-
-        print(d)
-        with open("settings/settings.json", "r") as f:
-            data = json.load(f)
-        if d['exchange_from'] not in data['exchanges_from'] or d['exchange_to'] not in data['exchanges_to']:
-            print("❌ Error: Exchange mismatch (Expected MEXC -> BingX)")
-            return False, None
-        return True, d
-
-    elif not is_contain:
-        quantity_from = convert_abbreviation(l_data[4])
-        quantity_to = convert_abbreviation(l_data[9])
-        d = {
-            "exchange_from": l_data[1],
-            "price_from": l_data[2],
-            "quantity_from": quantity_from,
-            'orders_count_from': l_data[5],
-            "exchange_to": l_data[6],
-            "price_to": l_data[7],
-            "quantity_to": quantity_to,
-            "orders_count_to": l_data[11],
-            "token": l_data[0].replace('USDT', ''),
-
-        }
-
-        print(d)
-        with open("settings/settings.json", "r") as f:
-            data = json.load(f)
-        if d['exchange_from'] not in data['exchanges_from'] or d['exchange_to'] not in data['exchanges_to']:
-            print("❌ Error: Exchange mismatch (Expected MEXC -> BingX)")
-            return False, None
-        return True, d
-    else:
-        return False, None
-
-
-
 
 
 
 if __name__ == "__main__":
-    print("✅ Telegram bot is running...")
+    loggs.system_log.info("✅ Telegram bot is running...")
     bot.run_until_disconnected()
 #
 

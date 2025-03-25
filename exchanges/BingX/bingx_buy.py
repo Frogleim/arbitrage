@@ -4,6 +4,7 @@ import requests
 import hmac
 from hashlib import sha256
 import os
+from exchanges import loggs
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -31,7 +32,7 @@ def buy_crypto(coin, quantity, api_key, api_secret):
     "type": "MARKET",
     "symbol": f"{coin}-USDT",
     "side": "BUY",
-    "quoteOrderQty": 10,
+    "quoteOrderQty": 2,
     "newClientOrderId": "",
     "recvWindow": 1000,
     "timeInForce": "GTC",
@@ -53,7 +54,7 @@ def send_request(method, path, urlpa, payload, api_key, api_secret):
         'X-BX-APIKEY': api_key,
     }
     response = requests.request(method, url, headers=headers, data=payload)
-    return response.text
+    return response.json()
 
 def parseParam(paramsMap):
     sortedKeys = sorted(paramsMap)
@@ -65,4 +66,8 @@ def parseParam(paramsMap):
 
 
 if __name__ == '__main__':
-    print("demo:", buy_crypto(coin='SOL', quantity=100))
+    api_key = 'K0doNDRAz90hGvBdCKeeK4S7eS5eurl6huMc9CvwyfeNHlKQBe3RUa40IFrLNZMb2Bg9t5oHN8bfrUiKOeeg'
+    api_secret = '3DetCim4QMmEofEB6LhWBerht1D4gRl4h4XmztHwZagESgfCJsa86rM4JDXKmj2ZyI1aqufhJH4Nfp1Q'
+    # print("demo:", buy_crypto(coin='BANANA', quantity=1 , api_key=api_key, api_secret=api_secret))
+    data = get_market_price('BURGER', api_key, api_secret)
+    print(data['data'][0]['trades'][0]['price'])

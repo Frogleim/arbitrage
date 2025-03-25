@@ -1,0 +1,21 @@
+✅BURGER: BingX→KuCoin 3411.7 +66.1$ (1.93%)
+
+`BURGER`/USDT: №[1431](https://coinmarketcap.com/currencies/burger-cities/)
+
+📗| [BingX](https://bingx.com/ru-ru/spot/BURGERUSDT/) | [вывод](https://bingx.com/ru-ru/assets/withdraw/) |
+Цена: `0.0734786` [0.0733-`0.0735`]
+Объем: **3411.7 $**, 46.43K, 3 ордера
+
+📕| [KuCoin](https://www.kucoin.com/ru/trade/BURGER-USDT) | [ввод](https://www.kucoin.com/ru/assets/coin/BURGER) |
+Цена: `0.0750892` [0.0784-`0.0737`]
+Объем: **3486.4 $**, 46.43K, 46 ордеров
+
+Комиссия: спот **8.6$** / перевод **0.24$** (3.2 BURGER)
+Сеть: BEP20
+🟢 1-3 минуты (15 подт. ~ 1 мин)
+🕑 Время жизни: 07:31
+💰 Чистый спред: **66.1$** (**1.93%**)
+✅Маржинальный заём
+👍[Контракты](https://bscscan.com/token/0xae9269f27437f0fcbc232d39ec814844a51d6b8f) совпадают
+
+✅Фьючерсы: [MEXC](https://futures.mexc.com/exchange/BURGER_USDT) | [Bitget](https://www.bitget.com/futures/usdt/BURGERUSDT_UMCBL) | [XT](https://www.xt.com/ru/futures/trade/burger_usdt)

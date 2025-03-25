@@ -1,14 +1,1 @@
-1.03 beta - 2025-02-18 13:13:54,048 - ERROR - string indices must be integers, not 'str'
-1.03 beta - 2025-03-11 20:41:20,227 - ERROR - Error while buying POL in binance spot
-1.03 beta - 2025-03-11 20:42:49,439 - ERROR - Error while buying POL in binance spot
-1.03 beta - 2025-03-11 20:43:17,720 - ERROR - Error while buying POL in binance spot
-APIError(code=-1013): Filter failure: LOT_SIZE
-1.03 beta - 2025-03-11 20:43:53,561 - ERROR - Error while buying POL in binance spot
-APIError(code=-1013): Filter failure: LOT_SIZE
-1.03 beta - 2025-03-11 20:44:54,842 - ERROR - Error while buying POL in binance spot
-APIError(code=-1013): Filter failure: LOT_SIZE
-1.03 beta - 2025-03-11 20:45:22,037 - ERROR - Error while buying POL in binance spot
-APIError(code=-1013): Filter failure: LOT_SIZE
-1.03 beta - 2025-03-11 20:47:06,220 - ERROR - Error while buying POL in Binance Spot: APIError(code=-1111): Parameter 'quantity' has too much precision.
-1.03 beta - 2025-03-11 20:47:30,064 - ERROR - Error while buying POL in Binance Spot: APIError(code=-1111): Parameter 'quantity' has too much precision.
-1.03 beta - 2025-03-11 20:47:56,343 - ERROR - Error while buying POL in Binance Spot: APIError(code=-1013): Filter failure: NOTIONAL
+1.03 beta - 2025-03-25 22:16:36,294 - ERROR - Error while closing position: APIError(code=-4164): Order's notional must be no smaller than 5 (unless you choose reduce only).

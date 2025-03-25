@@ -1,6 +1,6 @@
 {
   "exchanges_from":
-          ["MEXC", "BINGX", "Binance"],
+          ["MEXC", "BingX", "Binance", "KuCoin"],
   "exchanges_to":
-          ["BingX", "Binance"]
+          ["BingX", "Binance", "KuCoin"]
 }

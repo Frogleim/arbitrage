@@ -2,3 +2,7 @@ mexc-api
 python-dotenv
 telethon
 python-binance
+kucoin-futures-python
+kucoin-python
+ccxt
+bitmart-python-sdk-api
